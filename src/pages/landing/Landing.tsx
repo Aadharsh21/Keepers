@@ -7,7 +7,7 @@ import { Link } from '../../router'
 import { MomentIllustration } from './MomentIllustration'
 import styles from './Landing.module.css'
 
-const REPO = 'https://github.com/Aadharsh21/keepers'
+const REPO = 'https://github.com/Aadharsh21/Keepers'
 
 const CHECKS = [
   {
