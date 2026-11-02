@@ -117,7 +117,9 @@ self.onmessage = async (e: MessageEvent<ToWorker>) => {
     }
   } catch (err) {
     const code = err instanceof DecodeError ? err.code : 'failed'
-    const message = err instanceof DecodeError ? err.message : `Could not read this file (${(err as Error)?.message ?? err}).`
+    if (!(err instanceof DecodeError)) console.warn('[keeper] analysis failed', msg.type === 'analyze' || msg.type === 'preview' ? msg.file.name : '', err)
+    const message =
+      err instanceof DecodeError ? err.message : 'Keeper could not read this file. It may be damaged, or saved in a format this browser cannot open.'
     post({ type: 'error', id: msg.id, code, message })
   }
 }

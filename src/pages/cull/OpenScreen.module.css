@@ -184,7 +184,7 @@
   text-align: center;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 40em) {
   .page {
     padding-top: var(--s-4);
   }

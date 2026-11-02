@@ -145,7 +145,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .card {
     padding: var(--s-4);
   }

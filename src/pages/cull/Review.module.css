@@ -253,6 +253,7 @@
 
 .chips .filterGroup {
   display: flex;
+  flex: none;
   gap: var(--s-2);
 }
 
@@ -293,13 +294,13 @@
   margin: calc(var(--s-5) * -1);
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 77.5em) {
   .body {
     grid-template-columns: 14.5rem minmax(0, 1fr) minmax(18rem, 21rem);
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 60em) {
   .body {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -318,7 +319,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 35em) {
   .hideNarrow {
     display: none;
   }

@@ -112,7 +112,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s-1);
-  min-height: 2.25rem;
+  min-height: var(--control-h-sm);
   padding: 0 var(--s-2);
   border: 0;
   border-radius: var(--r-sm);
@@ -125,6 +125,10 @@
 
 .reset:hover {
   background: var(--surface-2);
+}
+
+.reset:active {
+  transform: scale(0.97);
 }
 
 .reset svg {

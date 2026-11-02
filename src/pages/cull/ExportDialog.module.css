@@ -155,9 +155,25 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 35em) {
   .option {
     flex-direction: column;
     gap: var(--s-3);
   }
+}
+
+.star {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.star svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.star[aria-pressed='true'] svg {
+  color: var(--accent-text);
+  fill: currentColor;
 }

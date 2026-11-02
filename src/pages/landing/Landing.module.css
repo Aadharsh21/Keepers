@@ -364,7 +364,7 @@
   font-size: var(--text-sm);
 }
 
-@media (max-width: 960px) {
+@media (max-width: 60em) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--s-10);
@@ -388,7 +388,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 45em) {
   .navLink {
     display: none;
   }

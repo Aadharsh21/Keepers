@@ -287,11 +287,16 @@ kbd,
   cursor: pointer;
   transition:
     background-color var(--fast) var(--ease),
-    color var(--fast) var(--ease);
+    color var(--fast) var(--ease),
+    transform var(--fast) var(--ease);
 }
 
 .segmented button:hover {
   color: var(--text);
+}
+
+.segmented button:active {
+  transform: scale(0.96);
 }
 
 .segmented button[aria-pressed='true'] {

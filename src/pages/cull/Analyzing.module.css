@@ -79,7 +79,7 @@
   min-height: 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 40em) {
   .panel {
     padding: var(--s-4);
   }

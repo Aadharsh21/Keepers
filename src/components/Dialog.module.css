@@ -77,7 +77,7 @@
   border-top: 1px solid var(--border);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 40em) {
   .dialog,
   .lg {
     width: 100%;

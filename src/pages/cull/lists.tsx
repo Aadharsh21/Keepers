@@ -12,14 +12,26 @@ const timeFmt = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2
 export const formatTime = (t?: number) => (t === undefined ? null : timeFmt.format(t))
 
 function useNarrow(): boolean {
-  const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 720px)').matches)
+  const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 45em)').matches)
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 720px)')
+    const mq = window.matchMedia('(max-width: 45em)')
     const on = () => setNarrow(mq.matches)
     mq.addEventListener('change', on)
     return () => mq.removeEventListener('change', on)
   }, [])
   return narrow
+}
+
+/** Root font size in px; thumbnails and rows scale with the person's text size setting. */
+function useRem(): number {
+  const read = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
+  const [rem, setRem] = useState(read)
+  useEffect(() => {
+    const ro = new ResizeObserver(() => setRem(read()))
+    ro.observe(document.documentElement)
+    return () => ro.disconnect()
+  }, [])
+  return rem
 }
 
 function useWidth(ref: RefObject<HTMLElement | null>): number {
@@ -67,8 +79,10 @@ function chrono(m: Moment, entries: Map<string, PhotoEntry>): string[] {
 export function MomentList({ view, entries, byId, overrides, selectedId, onSelect, onOpen, onCompare }: CommonProps & { onCompare: (momentId: string) => void }) {
   const parent = useRef<HTMLDivElement>(null)
   const narrow = useNarrow()
-  const strip = narrow ? 112 : 160
-  const rowHeight = strip + (narrow ? 64 : 72)
+  const rem = useRem()
+  const strip = Math.round((narrow ? 7 : 10) * rem)
+  // First guess only: rows are measured after render, so wrapped headers never overlap.
+  const rowHeight = strip + Math.round((narrow ? 4 : 4.5) * rem)
   const ordered = useMemo(() => view.moments.map((m) => ({ m, ids: chrono(m, entries) })), [view.moments, entries])
   const indexOf = useMemo(() => {
     const map = new Map<string, number>()
@@ -114,8 +128,10 @@ export function MomentList({ view, entries, byId, overrides, selectedId, onSelec
           return (
             <section
               key={m.id}
+              ref={virtualizer.measureElement}
+              data-index={row.index}
               className={styles.moment}
-              style={{ transform: `translateY(${row.start}px)`, height: rowHeight }}
+              style={{ transform: `translateY(${row.start}px)` }}
               aria-label={`${time ?? `Moment ${m.id.slice(1)}`}, ${ids.length} photos, keeping ${keeping}`}
             >
               <header className={styles.momentHead}>
@@ -124,8 +140,8 @@ export function MomentList({ view, entries, byId, overrides, selectedId, onSelec
                   {ids.length === 1 ? '1 photo' : `${ids.length} photos`} · keeping {keeping}
                 </span>
                 {ids.length > 1 && (
-                  <button type="button" className={`btn btn-ghost btn-sm ${styles.compare}`} onClick={() => onCompare(m.id)}>
-                    <Columns2 /> Compare
+                  <button type="button" className={`btn btn-ghost btn-sm ${styles.compare}`} onClick={() => onCompare(m.id)} aria-label="Compare frames">
+                    <Columns2 /> <span>Compare</span>
                   </button>
                 )}
               </header>
@@ -173,7 +189,8 @@ export function PhotoGrid({
   const parent = useRef<HTMLDivElement>(null)
   const width = useWidth(parent)
   const narrow = useNarrow()
-  const minTile = narrow ? 150 : 210
+  const rem = useRem()
+  const minTile = (narrow ? 9.5 : 13) * rem
   const gap = narrow ? 8 : 12
   const pad = narrow ? 12 : 24
   const inner = Math.max(0, width - pad * 2)

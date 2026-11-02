@@ -55,7 +55,17 @@ export function ExportDialog({ open, onClose }: { open: boolean; onClose: () => 
       if (e?.name === 'AbortError') setOutcome(null)
       else {
         console.error(err)
-        setOutcome({ job, ok: false, message: e?.message && !/^[A-Z][a-zA-Z]+Error/.test(e.message) ? e.message : 'The export stopped before it finished. Check that there is enough free space and try again.', warnings: [] })
+        const message =
+          e?.name === 'NotAllowedError' || e?.name === 'SecurityError'
+            ? 'Keeper was not allowed to save there. Try again and choose Allow, or pick a different folder.'
+            : e?.name === 'QuotaExceededError'
+              ? 'There is not enough free space on that drive. Free some space or pick another drive.'
+              : e?.name === 'NotFoundError'
+                ? 'A file or folder moved while Keeper was exporting. Reopen the shoot and try again.'
+                : err instanceof Error && err.name === 'Error' && err.message
+                  ? err.message
+                  : 'The export stopped before it finished. Check the destination and try again.'
+        setOutcome({ job, ok: false, message, warnings: [] })
       }
     } finally {
       setRunning(null)
@@ -135,8 +145,15 @@ export function ExportDialog({ open, onClose }: { open: boolean; onClose: () => 
             <div className={styles.controls}>
               <div className="segmented" role="group" aria-label="Stars for keepers">
                 {([1, 2, 3, 4, 5] as const).map((n) => (
-                  <button key={n} type="button" aria-pressed={prefs.keeperStars === n} onClick={() => setPrefs({ keeperStars: n })} aria-label={`${n} stars`}>
-                    {n}★
+                  <button
+                    key={n}
+                    type="button"
+                    className={styles.star}
+                    aria-pressed={prefs.keeperStars === n}
+                    onClick={() => setPrefs({ keeperStars: n })}
+                    aria-label={`${n} ${n === 1 ? 'star' : 'stars'}`}
+                  >
+                    {n} <Star aria-hidden="true" />
                   </button>
                 ))}
               </div>

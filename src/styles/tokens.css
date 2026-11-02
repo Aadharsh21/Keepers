@@ -82,7 +82,7 @@
 @media (pointer: coarse) {
   :root {
     --control-h: 3rem;
-    --control-h-sm: 2.75rem;
+    --control-h-sm: 3rem;
   }
 }
 

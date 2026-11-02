@@ -32,7 +32,7 @@ const EMPTY: Partial<Record<Filter, [string, string]>> = {
   exposure: ['No exposure problems', 'No blown highlights or very dark frames.'],
 }
 
-function useNarrow(query = '(max-width: 960px)') {
+function useNarrow(query = '(max-width: 60em)') {
   const [narrow, setNarrow] = useState(() => window.matchMedia(query).matches)
   useEffect(() => {
     const mq = window.matchMedia(query)
@@ -136,7 +136,10 @@ export function Review() {
       else if ((key === 'p' || key === 'k') && selected) setVerdict(selected, 'keep')
       else if ((key === 'x' || key === 'r') && selected) setVerdict(selected, 'reject')
       else if (key === 'u' && selected) setVerdict(selected, null)
-      else if ((key === 'c' || key === 'enter') && selected && (target === document.body || target.dataset.photoId)) setCompareId(selected)
+      else if (key === 'enter' && target.dataset.photoId) {
+        select(target.dataset.photoId)
+        setCompareId(target.dataset.photoId)
+      } else if (key === 'c' && selected) setCompareId(selected)
       else if (key === 'f') setPrefs({ showFaces: !prefs.showFaces })
       else if (key === 'e') setExportOpen(true)
       else if (key === '?') setHelpOpen(true)
