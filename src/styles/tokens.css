@@ -1,0 +1,102 @@
+/*
+ * Keeper design tokens.
+ * Neutral graphite grays (so photo colors read accurately) plus one amber accent.
+ * Every color is a light-dark() pair; the theme follows the OS unless the user
+ * picks one, which sets data-theme on <html>.
+ */
+:root {
+  color-scheme: light dark;
+
+  /* Surfaces */
+  --bg: light-dark(#f4f4f3, #111213);
+  --surface-1: light-dark(#ffffff, #18191b);
+  --surface-2: light-dark(#f0f0ee, #202124);
+  --surface-3: light-dark(#e6e6e3, #2a2b2f);
+  --stage: light-dark(#e7e7e5, #0b0b0c);
+  --overlay: light-dark(rgb(24 25 27 / 0.45), rgb(0 0 0 / 0.6));
+
+  /* Lines */
+  --border: light-dark(#deded9, #2e3034);
+  --border-strong: light-dark(#c6c6c0, #42454b);
+
+  /* Text */
+  --text: light-dark(#18191b, #ecedee);
+  --text-2: light-dark(#4f525a, #a9acb2);
+  --text-3: light-dark(#666a72, #8c9097);
+
+  /* Accent: amber, used for primary actions, focus and selection */
+  --accent: #f2b33d;
+  --accent-hover: light-dark(#e5a325, #f7c463);
+  --on-accent: #1d1503;
+  --accent-text: light-dark(#8a5300, #f2b33d);
+  --accent-soft: light-dark(rgb(242 179 61 / 0.18), rgb(242 179 61 / 0.14));
+
+  /* Verdicts */
+  --keep: light-dark(#1d8048, #5dcb8d);
+  --keep-soft: light-dark(rgb(29 128 72 / 0.12), rgb(93 203 141 / 0.14));
+  --reject: light-dark(#c03535, #f27c7c);
+  --reject-soft: light-dark(rgb(192 53 53 / 0.1), rgb(242 124 124 / 0.14));
+  --review: light-dark(#1f69c2, #79b8ff);
+  --review-soft: light-dark(rgb(31 105 194 / 0.1), rgb(121 184 255 / 0.14));
+
+  /* Type */
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+  --text-xs: 0.8125rem; /* 13px, smallest allowed */
+  --text-sm: 0.875rem; /* 14px */
+  --text-md: 1rem; /* 16px body */
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-hero: clamp(2.375rem, 1.6rem + 3.4vw, 4rem);
+
+  /* Spacing (4px steps) */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-10: 2.5rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-20: 5rem;
+
+  /* Shape and motion */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-full: 999px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --fast: 120ms;
+  --normal: 200ms;
+  --shadow-pop: 0 12px 32px rgb(0 0 0 / 0.22), 0 2px 6px rgb(0 0 0 / 0.12);
+
+  /* Controls: 44px on desktop, 48px on touch screens */
+  --control-h: 2.75rem;
+  --control-h-sm: 2.25rem;
+}
+
+@media (pointer: coarse) {
+  :root {
+    --control-h: 3rem;
+    --control-h-sm: 2.75rem;
+  }
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fast: 0ms;
+    --normal: 0ms;
+  }
+}

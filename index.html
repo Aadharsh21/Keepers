@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Keeper: cull a whole shoot in minutes</title>
+    <meta
+      name="description"
+      content="Keeper groups bursts, checks focus on the eyes, catches blinks and blown highlights, and picks the best frame of every moment. It runs in your browser, so your photos never leave your computer."
+    />
+    <meta name="theme-color" content="#f4f4f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111213" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content="Keeper: cull a whole shoot in minutes" />
+    <meta
+      property="og:description"
+      content="Groups bursts, checks focus and blinks, and picks the best frame of every moment. Runs entirely in your browser."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Apply a saved theme before first paint to avoid a flash.
+      try {
+        var t = JSON.parse(localStorage.getItem('keeper.prefs') || '{}').theme
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Keeper needs JavaScript: all photo analysis runs in your browser.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

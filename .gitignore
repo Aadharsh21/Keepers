@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+coverage
+# MediaPipe runtime is copied from node_modules at build time
+public/mediapipe
+# Local eval output and private test shoots never get committed
+eval-output
+private
+.netlify
