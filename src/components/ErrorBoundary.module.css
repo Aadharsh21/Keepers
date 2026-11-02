@@ -1,0 +1,16 @@
+.wrap {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-4);
+  width: min(100% - 2rem, 34rem);
+  margin: 0 auto;
+  padding: var(--s-16) 0;
+}
+
+.title {
+  font-size: var(--text-2xl);
+}
+
+.text {
+  color: var(--text-2);
+}

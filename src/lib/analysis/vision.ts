@@ -19,10 +19,10 @@ export async function initVision(base: string): Promise<void> {
   // Absolute URLs: MediaPipe loads its runtime with a dynamic import(), and
   // Vite's dev server would otherwise rewrite same-origin relative imports.
   const root = new URL(base, self.location.origin).href
-  const fileset = await FilesetResolver.forVisionTasks(`${root}mediapipe`, true)
+  const fileset = await FilesetResolver.forVisionTasks(`${root}mediapipe/${__MEDIAPIPE_VERSION__}`, true)
   ;[landmarker, embedder] = await Promise.all([
     FaceLandmarker.createFromOptions(fileset, {
-      baseOptions: { modelAssetPath: `${root}models/face_landmarker.task`, delegate: 'CPU' },
+      baseOptions: { modelAssetPath: `${root}models/face_landmarker-v1.task`, delegate: 'CPU' },
       runningMode: 'IMAGE',
       numFaces: 8,
       minFaceDetectionConfidence: 0.5,
@@ -30,7 +30,7 @@ export async function initVision(base: string): Promise<void> {
       outputFaceBlendshapes: true,
     }),
     ImageEmbedder.createFromOptions(fileset, {
-      baseOptions: { modelAssetPath: `${root}models/mobilenet_v3_small.tflite`, delegate: 'CPU' },
+      baseOptions: { modelAssetPath: `${root}models/mobilenet_v3_small-v1.tflite`, delegate: 'CPU' },
       runningMode: 'IMAGE',
       l2Normalize: true,
       quantize: false,

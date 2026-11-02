@@ -20,6 +20,7 @@ I take photos, and after a shoot I come home with hundreds of near-identical fra
 - **Exports to your workflow.** Star ratings and labels in `.xmp` sidecars for Lightroom and Capture One (merged into existing sidecars, never overwriting edits), a copy of the keepers in any folder, or a streamed ZIP.
 - **Remembers.** Analysis is cached per file in IndexedDB, so reopening a shoot is instant, and your decisions survive reloads.
 - **Private by design.** All analysis runs on your machine in WebAssembly. No uploads, no account, and a strict Content Security Policy.
+- **Works offline and installs like an app.** A service worker generated at build time precaches the app shell and caches the versioned models, so after one visit Keeper culls with no connection.
 
 ## How it works
 

@@ -35,7 +35,7 @@ const CHECKS = [
 const FAQ = [
   {
     q: 'Do my photos get uploaded?',
-    a: 'No. Keeper is a website, but the analysis runs on your computer with WebAssembly. Photos are read from your disk and never sent anywhere. Once the page has loaded it even works offline.',
+    a: 'No. Keeper is a website, but the analysis runs on your computer with WebAssembly. Photos are read from your disk and never sent anywhere. After your first visit it even works offline, and you can install it like a desktop app.',
   },
   {
     q: 'Which files can it read?',
@@ -189,7 +189,7 @@ export default function Landing() {
                 <WifiOff aria-hidden="true" />
                 <div>
                   <strong>Works offline</strong>
-                  <span>Once the page loads, the culling needs no connection.</span>
+                  <span>After your first visit, culling needs no connection.</span>
                 </div>
               </li>
             </ul>

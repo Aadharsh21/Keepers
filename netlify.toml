@@ -5,9 +5,15 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# Single-page app: every route serves index.html. Real files take precedence.
+# The app lives at /cull; serve the single-page shell there. Anything else
+# that is not a real file gets the 404 page (missing old chunks fail cleanly).
 [[redirects]]
-  from = "/*"
+  from = "/cull"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cull/*"
   to = "/index.html"
   status = 200
 
@@ -27,13 +33,24 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Models and the MediaPipe runtime are large; cache them for a week.
+# Models and the MediaPipe runtime have versions in their paths, so they never change.
 [[headers]]
   for = "/models/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/mediapipe/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The service worker must always be fresh so new deploys reach people.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
