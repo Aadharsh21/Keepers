@@ -229,6 +229,13 @@ kbd,
   line-height: 1;
 }
 
+/* Keyboard hints mean nothing on touch screens. */
+@media (pointer: coarse) {
+  .btn kbd {
+    display: none;
+  }
+}
+
 /* Skeleton placeholder that matches the shape of what will load */
 .skeleton {
   position: relative;

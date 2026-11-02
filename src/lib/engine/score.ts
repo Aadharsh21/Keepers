@@ -1,7 +1,7 @@
 import { hamming } from '../analysis/dhash'
 import type { FaceInfo } from '../types'
 import { cosine, groupMoments } from './group'
-import type { Assessment, CullResult, CullSettings, EnginePhoto, EyeState, IssueCode, Reason, Strictness } from './types'
+import type { Assessment, CullResult, CullSettings, EnginePhoto, IssueCode, Reason, Strictness } from './types'
 
 /**
  * Turns per-photo measurements into keep/reject decisions.
