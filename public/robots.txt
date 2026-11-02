@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://keeper-cull.netlify.app/sitemap.xml

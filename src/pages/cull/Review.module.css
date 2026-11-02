@@ -25,7 +25,10 @@
 
 .shootName {
   overflow: hidden;
+  font-size: var(--text-md);
   font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.3;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

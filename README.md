@@ -87,6 +87,14 @@ It reports precision, recall, F1, reject agreement and the **moment hit rate**: 
 - Results reach the UI in batches, and the moment list and grids are virtualized, so a 2,000 photo shoot scrolls smoothly.
 - ZIP exports stream to disk in Chrome and Edge, and split into parts elsewhere.
 
+## Quality checks
+
+- **Lighthouse** (mobile, production build): 100 Performance, 100 Accessibility, 100 Best Practices, 100 SEO. LCP 1.0 s, CLS 0.
+- **axe-core**: no accessibility violations on the landing page, open screen, review screen, compare view or export dialog, in light and dark themes.
+- **Unit tests** cover the TIFF, JPEG, CR3 and HEIF parsers (with synthetic files built byte by byte), the focus, exposure and hash metrics, and the grouping and scoring engine. CI runs lint, tests and a production build on every push.
+- **Real camera files**: the parsers read camera, lens settings and capture time from real Canon CR2 and CR3, Nikon NEF, DNG, Fujifilm RAF and Panasonic RW2 files (ExifTool's test set). Point `KEEPER_REAL_RAW` at a folder of RAW files to run that check: `KEEPER_REAL_RAW=~/raw-samples npm test`.
+- **Scale**: a 400 photo shoot analyzes at about 11 photos a second in headless Chromium on a modest cloud CPU, and stays responsive while reviewing.
+
 ## Running locally
 
 ```bash

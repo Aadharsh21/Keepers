@@ -239,9 +239,9 @@ export function Review() {
       <header className={styles.top}>
         <Logo />
         <div className={styles.shoot}>
-          <span className={styles.shootName} title={s.name}>
+          <h1 className={styles.shootName} title={s.name}>
             {s.name}
-          </span>
+          </h1>
           <span className={styles.shootMeta}>
             {s.ids.length.toLocaleString()} photos{s.isSample ? ' · sample' : ''}
           </span>

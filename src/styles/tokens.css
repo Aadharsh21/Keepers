@@ -32,7 +32,7 @@
   --accent-soft: light-dark(rgb(242 179 61 / 0.18), rgb(242 179 61 / 0.14));
 
   /* Verdicts */
-  --keep: light-dark(#1d8048, #5dcb8d);
+  --keep: light-dark(#186b3c, #5dcb8d);
   --keep-soft: light-dark(rgb(29 128 72 / 0.12), rgb(93 203 141 / 0.14));
   --reject: light-dark(#c03535, #f27c7c);
   --reject-soft: light-dark(rgb(192 53 53 / 0.1), rgb(242 124 124 / 0.14));
