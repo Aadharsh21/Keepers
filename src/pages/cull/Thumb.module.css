@@ -145,7 +145,7 @@
 }
 
 /* Small tiles: the check mark and outline already say which frame is best. */
-@container (max-width: 132px) {
+@container (max-width: 112px) {
   .best {
     display: none;
   }

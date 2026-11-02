@@ -17,13 +17,7 @@
     />
     <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script>
-      // Apply a saved theme before first paint to avoid a flash.
-      try {
-        var t = JSON.parse(localStorage.getItem('keeper.prefs') || '{}').theme
-        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
-      } catch (e) {}
-    </script>
+    <script src="/theme.js"></script>
   </head>
   <body>
     <div id="root"></div>
