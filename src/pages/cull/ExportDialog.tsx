@@ -34,7 +34,12 @@ export function ExportDialog({ open, onClose }: { open: boolean; onClose: () => 
       if (e.source.raw && v) {
         rated.push({
           source: e.source,
-          tags: v === 'keep' ? { rating: prefs.keeperStars, label: '' } : { rating: 0, label: prefs.rejectLabel === 'Red' ? 'Red' : '' },
+          tags:
+            v === 'keep'
+              ? { rating: prefs.keeperStars, clearLabelIf: 'Red' }
+              : prefs.rejectLabel === 'Red'
+                ? { rating: 0, label: 'Red' }
+                : { rating: 0, clearLabelIf: 'Red' },
         })
       }
     }

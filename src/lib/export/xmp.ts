@@ -7,7 +7,10 @@ import { baseNameOf } from '../formats/detect'
  */
 export interface RatingTags {
   rating?: number
+  /** Color label to set. Leave undefined to keep whatever label is there. */
   label?: string
+  /** Remove the label only if it is this one (Keeper's own reject label), so people's labels survive. */
+  clearLabelIf?: string
 }
 
 /** Byte order mark that XMP packets carry in their begin attribute. */
@@ -66,6 +69,11 @@ export function mergeSidecar(existing: string, tags: RatingTags): string | null 
   }
   if (tags.rating !== undefined) set('Rating', String(tags.rating))
   if (tags.label !== undefined) set('Label', tags.label || undefined)
+  else if (tags.clearLabelIf) {
+    const el = doc.getElementsByTagNameNS(NS_XMP, 'Label')[0]
+    const current = desc.getAttributeNS(NS_XMP, 'Label') ?? el?.textContent?.trim()
+    if (current === tags.clearLabelIf) set('Label', undefined)
+  }
 
   const body = new XMLSerializer().serializeToString(doc)
   // XMLSerializer drops the XML declaration only if there was none; keep packet wrappers intact.
