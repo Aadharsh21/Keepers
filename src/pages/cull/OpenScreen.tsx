@@ -4,7 +4,7 @@ import { ACCEPT_ATTR, FORMAT_LABELS } from '../../lib/formats/detect'
 import { fromDataTransfer, fromDirectoryHandle, fromFileList, type FileWithPath } from '../../lib/ingest/collect'
 import { loadSampleShoot, sampleManifest } from '../../lib/ingest/sample'
 import { deleteSession, recentSessions, type SavedSession } from '../../lib/store/db'
-import { dismissNotice, openShoot, showNotice, useSession } from '../../lib/store/session'
+import { dismissNotice, getPool, openShoot, showNotice, useSession } from '../../lib/store/session'
 import styles from './OpenScreen.module.css'
 
 type ShowDirectoryPicker = (opts?: { id?: string; mode?: 'read' | 'readwrite' }) => Promise<FileSystemDirectoryHandle>
@@ -34,6 +34,10 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
   useEffect(() => {
     void sampleManifest().then((m) => setHasSample(!!m))
     void recentSessions(3).then(setRecent)
+    // Start loading the face and image models while the person picks a folder,
+    // so analysis can begin the moment files arrive.
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 300))
+    idle(() => void getPool())
   }, [])
 
   const start = async (kind: string, load: () => Promise<{ files: FileWithPath[]; name: string; handle?: FileSystemDirectoryHandle | null; isSample?: boolean } | null>) => {
