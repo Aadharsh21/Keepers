@@ -119,7 +119,7 @@ export default function Landing() {
         Skip to content
       </a>
       <header className={styles.header}>
-        <Link href="/" className={styles.brand} aria-label="Keeper home">
+        <Link href="/" className={styles.brand}>
           <LogoMark />
           <span className={styles.brandText} data-visible={scrolled || undefined}>
             Keeper <span className={styles.dim}>· Photo culling</span>
