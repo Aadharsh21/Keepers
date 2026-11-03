@@ -1,7 +1,7 @@
 import { hamming } from '../analysis/dhash'
 import type { FaceInfo } from '../types'
 import { cosine, groupMoments } from './group'
-import type { Assessment, CullResult, CullSettings, EnginePhoto, IssueCode, Reason, Strictness } from './types'
+import type { Assessment, CullResult, CullSettings, EnginePhoto, IssueCode, Moment, Reason, Strictness } from './types'
 
 /**
  * Turns per-photo measurements into keep/reject decisions.
@@ -12,10 +12,14 @@ import type { Assessment, CullResult, CullSettings, EnginePhoto, IssueCode, Reas
  * compared with the rest of the shoot.
  */
 
+// Softness against the whole shoot is only a hint (a foggy landscape is soft
+// next to a lace dress), so it flags a frame for a look. Rejecting a frame
+// that is alone in its moment needs it to be far below the shoot everywhere:
+// its subject tiles and its single sharpest tile.
 const STRICT: Record<Strictness, { soft: number; severeSoft: number; clip: number; severeClip: number; dark: number }> = {
-  relaxed: { soft: 0.15, severeSoft: 0.06, clip: 0.12, severeClip: 0.35, dark: 38 },
-  balanced: { soft: 0.25, severeSoft: 0.1, clip: 0.08, severeClip: 0.25, dark: 45 },
-  strict: { soft: 0.35, severeSoft: 0.15, clip: 0.05, severeClip: 0.18, dark: 52 },
+  relaxed: { soft: 0.12, severeSoft: 0.02, clip: 0.12, severeClip: 0.35, dark: 38 },
+  balanced: { soft: 0.2, severeSoft: 0.04, clip: 0.08, severeClip: 0.25, dark: 45 },
+  strict: { soft: 0.3, severeSoft: 0.08, clip: 0.05, severeClip: 0.18, dark: 52 },
 }
 
 /** Blendshape eyeBlink at or above this on both eyes reads as closed. Smiles push it to about 0.3. */
@@ -89,7 +93,56 @@ function derive(p: EnginePhoto, s: Strictness): Derived {
 
 const pct = (v: number) => `${Math.max(1, Math.round(v * 100))}%`
 
-export function cull(photos: EnginePhoto[], settings: CullSettings): CullResult {
+/**
+ * Screenshots and graphics are not camera photos: white app backgrounds would
+ * read as blown highlights and crisp text would skew the shoot's focus
+ * baseline. They are recognised by name, by the "Screenshot" tag phones and
+ * Macs write, or by drawn pixels (exact flat areas, a small palette) in a
+ * file with no camera information.
+ */
+export function graphicKind(p: EnginePhoto): 'named' | 'tagged' | 'pixels' | null {
+  const g = p.f.graphic
+  if (!g) return null
+  if (g.named) return 'named'
+  if (g.tagged) return 'tagged'
+  if (!p.f.camera && g.flat >= 0.6 && g.top16 >= 0.7) return 'pixels'
+  return null
+}
+
+const GRAPHIC_REASON = {
+  named: 'The file name marks it as a screenshot',
+  tagged: 'The device marked it as a screenshot',
+  pixels: 'Looks like a screenshot or graphic, not a camera photo',
+} as const
+
+function setAside(graphics: EnginePhoto[], byId: Map<string, Assessment>): Moment {
+  const sorted = [...graphics].sort((a, b) => (a.f.captureTime ?? 0) - (b.f.captureTime ?? 0) || a.order - b.order)
+  const moment: Moment = { id: 'screens', kind: 'graphics', photoIds: sorted.map((p) => p.id) }
+  sorted.forEach((p, rank) => {
+    byId.set(p.id, {
+      id: p.id,
+      momentId: moment.id,
+      rank,
+      score: 0,
+      verdict: 'keep',
+      needsLook: false,
+      reasons: [
+        { text: GRAPHIC_REASON[graphicKind(p)!], tone: 'info' },
+        { text: 'Keeper leaves screenshots out of culling, so keep or reject them yourself', tone: 'info' },
+      ],
+      issues: ['screenshot'],
+      focusRel: 1,
+      eyes: 'none',
+      faces: 0,
+      closed: 0,
+    })
+  })
+  return moment
+}
+
+export function cull(all: EnginePhoto[], settings: CullSettings): CullResult {
+  const graphics = all.filter((p) => graphicKind(p) !== null)
+  const photos = graphics.length ? all.filter((p) => graphicKind(p) === null) : all
   const moments = groupMoments(photos, settings.grouping)
   const k = STRICT[settings.strictness]
   const byPhoto = new Map(photos.map((p) => [p.id, p]))
@@ -97,6 +150,7 @@ export function cull(photos: EnginePhoto[], settings: CullSettings): CullResult 
 
   // Shoot-wide baselines for the "soft" flag.
   const medFrame = median(photos.map((p) => p.f.sharp.p90))
+  const medMax = median(photos.map((p) => p.f.sharp.max))
   const medEye = median([...derived.values()].map((d) => d.eyeFocus).filter((v): v is number => v !== null))
 
   const byId = new Map<string, Assessment>()
@@ -131,7 +185,9 @@ export function cull(photos: EnginePhoto[], settings: CullSettings): CullResult 
       const softVsShoot =
         d.frameFocus < k.soft * medFrame && (d.eyeFocus === null || medEye === 0 || d.eyeFocus < k.soft * medEye)
       const severeSoft =
-        d.frameFocus < k.severeSoft * medFrame && (d.eyeFocus === null || medEye === 0 || d.eyeFocus < k.severeSoft * medEye)
+        d.frameFocus < k.severeSoft * medFrame &&
+        d.p.f.sharp.max < k.severeSoft * 2.5 * medMax &&
+        (d.eyeFocus === null || medEye === 0 || d.eyeFocus < k.severeSoft * medEye)
       if (softVsShoot || (size > 1 && x.focusRatio < 0.35)) issues.push('soft')
       if (d.faces.length && d.closed === d.faces.length) issues.push('eyes-closed')
       else if (d.closed > 0) issues.push('blink')
@@ -221,6 +277,7 @@ export function cull(photos: EnginePhoto[], settings: CullSettings): CullResult 
       })
     })
   }
+  if (graphics.length) moments.push(setAside(graphics, byId))
   return { moments, byId }
 }
 

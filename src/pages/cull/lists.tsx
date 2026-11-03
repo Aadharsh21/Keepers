@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual'
-import { Columns2 } from 'lucide-react'
+import { Check, Columns2, X } from 'lucide-react'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import type { Assessment, Moment } from '../../lib/engine/types'
 import type { ViewModel } from '../../lib/store/selectors'
@@ -76,7 +76,17 @@ function chrono(m: Moment, entries: Map<string, PhotoEntry>): string[] {
   })
 }
 
-export function MomentList({ view, entries, byId, overrides, selectedId, onSelect, onOpen, onCompare }: CommonProps & { onCompare: (momentId: string) => void }) {
+export function MomentList({
+  view,
+  entries,
+  byId,
+  overrides,
+  selectedId,
+  onSelect,
+  onOpen,
+  onCompare,
+  onBulk,
+}: CommonProps & { onCompare: (momentId: string) => void; onBulk: (ids: string[], verdict: Verdict) => void }) {
   const parent = useRef<HTMLDivElement>(null)
   const narrow = useNarrow()
   const rem = useRem()
@@ -132,8 +142,26 @@ export function MomentList({ view, entries, byId, overrides, selectedId, onSelec
               data-index={row.index}
               className={styles.moment}
               style={{ transform: `translateY(${row.start}px)` }}
-              aria-label={`${time ?? `Moment ${m.id.slice(1)}`}, ${ids.length} photos, keeping ${keeping}`}
+              aria-label={
+                m.kind === 'graphics'
+                  ? `Screenshots and graphics, ${ids.length} items, keeping ${keeping}`
+                  : `${time ?? `Moment ${m.id.slice(1)}`}, ${ids.length} photos, keeping ${keeping}`
+              }
             >
+              {m.kind === 'graphics' ? (
+                <header className={styles.momentHead}>
+                  <span className={styles.momentTitle}>Screenshots and graphics</span>
+                  <span className={styles.momentMeta}>
+                    {ids.length === 1 ? '1 item' : `${ids.length} items`} · not judged as photos · keeping {keeping}
+                  </span>
+                  <button type="button" className={`btn btn-ghost btn-sm ${styles.compare}`} onClick={() => onBulk(ids, 'keep')} aria-label="Keep all screenshots">
+                    <Check /> <span>Keep all</span>
+                  </button>
+                  <button type="button" className={`btn btn-ghost btn-sm ${styles.compare}`} onClick={() => onBulk(ids, 'reject')} aria-label="Reject all screenshots">
+                    <X /> <span>Reject all</span>
+                  </button>
+                </header>
+              ) : (
               <header className={styles.momentHead}>
                 <span className={styles.momentTitle}>{time ?? `Moment ${m.id.slice(1)}`}</span>
                 <span className={styles.momentMeta}>
@@ -145,6 +173,7 @@ export function MomentList({ view, entries, byId, overrides, selectedId, onSelec
                   </button>
                 )}
               </header>
+              )}
               <div className={styles.strip} style={{ height: strip + 8 }}>
                 {ids.map((id) => {
                   const entry = entries.get(id)

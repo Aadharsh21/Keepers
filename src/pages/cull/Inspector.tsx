@@ -140,7 +140,7 @@ export function Inspector({ entry, assessment, moment, verdict, overridden }: Pr
           </section>
         )}
 
-        {f && assessment && (
+        {f && assessment && !assessment.issues.includes('screenshot') && (
           <section className={styles.section} aria-labelledby="checks-title">
             <h3 id="checks-title" className={styles.sectionTitle}>
               Checks

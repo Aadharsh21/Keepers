@@ -1,4 +1,4 @@
-import { Check, Copy, EyeOff, Focus, Moon, Sun, X } from 'lucide-react'
+import { Check, Copy, EyeOff, Focus, MonitorSmartphone, Moon, Sun, X } from 'lucide-react'
 import { memo } from 'react'
 import type { Assessment } from '../../lib/engine/types'
 import type { PhotoEntry } from '../../lib/store/session'
@@ -70,6 +70,7 @@ export const Thumb = memo(function Thumb({ id, entry, assessment, verdict, overr
           {issues.includes('overexposed') && <Sun />}
           {issues.includes('underexposed') && <Moon />}
           {issues.includes('duplicate') && <Copy />}
+          {issues.includes('screenshot') && <MonitorSmartphone />}
         </span>
       )}
     </button>

@@ -9,7 +9,7 @@ import { getPrefs, setPrefs } from './prefs'
 
 export type Phase = 'empty' | 'analyzing' | 'review'
 
-export type Filter = 'all' | 'look' | 'keep' | 'reject' | 'eyes' | 'soft' | 'exposure'
+export type Filter = 'all' | 'look' | 'keep' | 'reject' | 'eyes' | 'soft' | 'exposure' | 'screens'
 
 export interface PhotoEntry {
   source: PhotoSource
@@ -239,6 +239,20 @@ export function setVerdict(id: string, verdict: Verdict | null): void {
     const auto = s.result?.byId.get(id)?.verdict
     if (verdict === null || verdict === auto) delete overrides[id]
     else overrides[id] = verdict
+    return { overrides }
+  })
+  persist()
+}
+
+/** Sets the same decision for many photos at once, as a single change. */
+export function setVerdicts(ids: string[], verdict: Verdict | null): void {
+  useSession.setState((s) => {
+    const overrides = { ...s.overrides }
+    for (const id of ids) {
+      const auto = s.result?.byId.get(id)?.verdict
+      if (verdict === null || verdict === auto) delete overrides[id]
+      else overrides[id] = verdict
+    }
     return { overrides }
   })
   persist()

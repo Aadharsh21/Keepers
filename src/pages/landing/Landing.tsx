@@ -46,6 +46,10 @@ const FAQ = [
     a: 'Keeper writes .xmp sidecar files next to your RAW files with a star rating for keepers and a red label for rejects. Lightroom Classic, Lightroom and Capture One read them on import, or with Read Metadata from Files.',
   },
   {
+    q: 'What if my folder has screenshots in it?',
+    a: 'Keeper spots screenshots and graphics by their name, the screenshot tag phones add, or their flat drawn pixels, and sets them aside in their own group. They are never judged like photos, and one click keeps or rejects them all.',
+  },
+  {
     q: 'Does it replace my judgment?',
     a: 'It replaces the first pass. Keeper shows its reason for every decision, marks close calls for you to check, and one key flips any call. You stay the editor.',
   },

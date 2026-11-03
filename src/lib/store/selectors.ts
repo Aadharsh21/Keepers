@@ -38,17 +38,19 @@ export function buildView(
         return a.issues.includes('eyes-closed') || a.issues.includes('blink')
       case 'soft':
         return a.issues.includes('soft')
+      case 'screens':
+        return a.issues.includes('screenshot')
       case 'exposure':
         return a.issues.includes('overexposed') || a.issues.includes('underexposed')
     }
   }
 
-  const counts = { all: 0, look: 0, keep: 0, reject: 0, eyes: 0, soft: 0, exposure: 0, momentsAll: moments.length }
+  const counts = { all: 0, look: 0, keep: 0, reject: 0, eyes: 0, soft: 0, exposure: 0, screens: 0, momentsAll: moments.length }
   const lookMoments = new Set<string>()
   for (const m of moments) {
     for (const id of m.photoIds) {
       counts.all++
-      for (const f of ['keep', 'reject', 'eyes', 'soft', 'exposure'] as const) if (has(id, f)) counts[f]++
+      for (const f of ['keep', 'reject', 'eyes', 'soft', 'exposure', 'screens'] as const) if (has(id, f)) counts[f]++
       if (has(id, 'look')) lookMoments.add(m.id)
     }
   }

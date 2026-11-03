@@ -1,5 +1,6 @@
 /// <reference lib="webworker" />
 import { dHash } from '../analysis/dhash'
+import { graphicStats, hasScreenshotTag, screenshotName } from '../analysis/graphic'
 import { exposureStats } from '../analysis/exposure'
 import { lumaFromRgba } from '../analysis/luma'
 import { tileSharpness } from '../analysis/sharpness'
@@ -33,6 +34,8 @@ async function analyze(file: File, kind: Parameters<typeof decodePhoto>[1]): Pro
     const luma = lumaFromRgba(px.rgba, px.width, px.height)
     const sharp = tileSharpness(luma, 128)
     const exposure = exposureStats(px.rgba, px.width, px.height)
+    const pixels = graphicStats(px.rgba, px.width, px.height)
+    const tagged = kind !== 'raw' && hasScreenshotTag(new Uint8Array(await file.slice(0, 64 * 1024).arrayBuffer()))
     const dhash = dHash(luma)
     lap('metrics')
 
@@ -74,6 +77,7 @@ async function analyze(file: File, kind: Parameters<typeof decodePhoto>[1]): Pro
       embedding,
       faces,
       facesChecked: vision,
+      graphic: { ...pixels, named: screenshotName(file.name), tagged },
       previewSource: decoded.previewSource,
       timings,
     }

@@ -66,6 +66,8 @@ score = 0.50 focus + 0.25 eyes + 0.10 exposure + 0.08 face coverage + 0.07 smile
 
 Background faces smaller than 15% of the largest face are ignored. The best frame is kept; extra picks per moment are kept only if they score within 80% of the best. Single frames are rejected only for severe problems, and frames that are close calls or the best of a weak set are marked **Needs a look**.
 
+**Screenshots and graphics** are set aside before any of this. A file counts as one when its name says screenshot, when it carries the "Screenshot" tag iPhones and Macs write, or when it has no camera information and its pixels look drawn: most neighbouring pixels exactly equal (sensors add noise, screens do not) and the 16 most common colors covering most of the frame. Judged as photos, white app backgrounds would read as blown highlights, and crisp text would raise the shoot's focus baseline until real photos looked soft. Camera files are never treated as graphics, so a lens-cap frame is still rejected as a bad photo.
+
 **Known limits.** The face detector is tuned for faces that fill part of the frame, so crowd shots with tiny faces may be judged on whole-frame focus. RAW analysis uses the camera's embedded preview, which reflects the camera's own rendering. The thresholds are a starting point; the eval script below is how to check them against a real photographer's choices.
 
 ## Measuring accuracy

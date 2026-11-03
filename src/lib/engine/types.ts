@@ -26,9 +26,11 @@ export interface Moment {
   photoIds: string[]
   start?: number
   end?: number
+  /** Screenshots and graphics are collected in one set that Keeper does not judge. */
+  kind?: 'graphics'
 }
 
-export type IssueCode = 'soft' | 'eyes-closed' | 'blink' | 'overexposed' | 'underexposed' | 'duplicate'
+export type IssueCode = 'soft' | 'eyes-closed' | 'blink' | 'overexposed' | 'underexposed' | 'duplicate' | 'screenshot'
 
 export interface Reason {
   text: string

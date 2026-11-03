@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Download, EyeOff, Flag, Focus, Keyboard, LayoutList, SunMedium, X, Check, CircleX } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Download, EyeOff, Flag, Focus, Keyboard, LayoutList, MonitorSmartphone, SunMedium, X, Check, CircleX } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Dialog } from '../../components/Dialog'
 import { Logo } from '../../components/Logo'
@@ -6,7 +6,7 @@ import { ThemeToggle } from '../../components/ThemeToggle'
 import type { Grouping, Strictness } from '../../lib/engine/types'
 import { buildView } from '../../lib/store/selectors'
 import { setPrefs, usePrefs } from '../../lib/store/prefs'
-import { closeShoot, select, setCullSettings, setFilter, setVerdict, useSession, type Filter } from '../../lib/store/session'
+import { closeShoot, select, setCullSettings, setFilter, setVerdict, setVerdicts, useSession, type Filter } from '../../lib/store/session'
 import { Compare } from './Compare'
 import { ExportDialog } from './ExportDialog'
 import { Inspector } from './Inspector'
@@ -22,6 +22,7 @@ const FILTERS: { id: Filter; label: string; icon: typeof Flag; group: 'show' | '
   { id: 'eyes', label: 'Eyes closed', icon: EyeOff, group: 'issues' },
   { id: 'soft', label: 'Soft focus', icon: Focus, group: 'issues' },
   { id: 'exposure', label: 'Exposure', icon: SunMedium, group: 'issues' },
+  { id: 'screens', label: 'Screenshots', icon: MonitorSmartphone, group: 'show' },
 ]
 
 const EMPTY: Partial<Record<Filter, [string, string]>> = {
@@ -30,6 +31,7 @@ const EMPTY: Partial<Record<Filter, [string, string]>> = {
   eyes: ['No closed eyes found', 'Keeper did not find any blinks in this shoot.'],
   soft: ['No soft frames', 'Every frame is about as sharp as its moment allows.'],
   exposure: ['No exposure problems', 'No blown highlights or very dark frames.'],
+  screens: ['No screenshots', 'Everything here is a camera photo.'],
 }
 
 function useNarrow(query = '(max-width: 60em)') {
@@ -175,7 +177,7 @@ export function Review() {
       {(['show', 'issues'] as const).map((group) => (
         <div key={group} className={styles.filterGroup}>
           {!narrow && <span className={styles.groupLabel}>{group === 'show' ? 'Show' : 'Issues'}</span>}
-          {FILTERS.filter((f) => f.group === group).map((f) => {
+          {FILTERS.filter((f) => f.group === group && (f.id !== 'screens' || view.counts.screens > 0)).map((f) => {
             const count = f.id === 'all' ? view.counts.momentsAll : view.counts[f.id]
             const Icon = f.icon
             return (
@@ -288,6 +290,7 @@ export function Review() {
                 onSelect={onSelect}
                 onOpen={onOpen}
                 onCompare={onCompare}
+                onBulk={setVerdicts}
               />
             ) : (
               <PhotoGrid

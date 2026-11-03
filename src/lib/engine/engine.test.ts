@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ANALYSIS_VERSION, type FaceInfo, type PhotoFeatures } from '../types'
 import { groupMoments } from './group'
-import { cull, subjectFaces } from './score'
+import { cull, graphicKind, subjectFaces } from './score'
 import { DEFAULT_SETTINGS, type EnginePhoto } from './types'
 
 let seed = 7
@@ -44,6 +44,7 @@ function photo(id: string, over: Partial<PhotoFeatures> & { emb: Float32Array | 
     embedding: emb,
     faces: [],
     facesChecked: true,
+    graphic: { flat: 0.02, top16: 0.12, named: false, tagged: false },
     timings: {},
     ...rest,
   }
@@ -163,5 +164,46 @@ describe('culling decisions', () => {
     ]
     const { byId } = cull(photos, DEFAULT_SETTINGS)
     expect(byId.get('c1')!.needsLook || byId.get('c2')!.needsLook).toBe(true)
+  })
+})
+
+describe('screenshots and graphics', () => {
+  const screenshot = (id: string, over: Partial<PhotoFeatures['graphic']> = {}) =>
+    photo(id, {
+      emb: unit(scene()),
+      // Text is razor sharp and app backgrounds are pure white: exactly what would fool photo checks.
+      sharp: { global: 4000, p90: 9000, p50: 3000, max: 12000, cols: 8, rows: 5, tiles: [] },
+      exposure: { mean: 230, p02: 30, p98: 255, clipHigh: 0.8, clipLow: 0.05, histogram: [] },
+      graphic: { flat: 0.95, top16: 0.98, named: false, tagged: false, ...over },
+    })
+
+  it('sets screenshots aside instead of judging them as photos', () => {
+    const photos = [
+      photo('cat', { emb: unit(scene()), t: 0, camera: 'Sony ILCE-7M4', hash: [0x1234, 0x5678] }),
+      screenshot('chat'),
+      screenshot('Screenshot_1.png', { flat: 0.1, top16: 0.2, named: true }),
+    ]
+    const { moments, byId } = cull(photos, DEFAULT_SETTINGS)
+    const set = moments.find((m) => m.kind === 'graphics')!
+    expect(set.photoIds.sort()).toEqual(['Screenshot_1.png', 'chat'])
+    expect(byId.get('chat')!.verdict).toBe('keep')
+    expect(byId.get('chat')!.issues).toEqual(['screenshot'])
+    expect(byId.get('chat')!.reasons[0].text).toMatch(/screenshot or graphic/)
+    expect(byId.get('Screenshot_1.png')!.reasons[0].text).toMatch(/file name/)
+  })
+
+  it('keeps screenshots out of the focus baseline so real photos are not marked soft', () => {
+    const real = Array.from({ length: 4 }, (_, i) => photo(`p${i}`, { emb: unit(scene()), t: i * 600_000, camera: 'Canon EOS R6', hash: [i * 7919, i * 104729] }))
+    const shots = Array.from({ length: 6 }, (_, i) => screenshot(`s${i}`))
+    const { byId } = cull([...real, ...shots], DEFAULT_SETTINGS)
+    for (const p of real) {
+      expect(byId.get(p.id)!.issues).not.toContain('soft')
+      expect(byId.get(p.id)!.verdict).toBe('keep')
+    }
+  })
+
+  it('never treats a photo with camera information as a graphic, even a black lens-cap frame', () => {
+    const capOn = photo('cap', { emb: unit(scene()), camera: 'Nikon Z 6_2', graphic: { flat: 0.99, top16: 1, named: false, tagged: false } })
+    expect(graphicKind(capOn)).toBeNull()
   })
 })

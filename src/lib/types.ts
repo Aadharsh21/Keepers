@@ -2,7 +2,7 @@ import type { ExposureStats } from './analysis/exposure'
 import type { PhotoKind } from './formats/detect'
 
 /** Bump when analysis output changes so cached results are recomputed. */
-export const ANALYSIS_VERSION = 3
+export const ANALYSIS_VERSION = 4
 
 export interface Rect {
   x: number
@@ -53,6 +53,15 @@ export interface PhotoFeatures {
   faces: FaceInfo[]
   /** False when the face model was unavailable, so "no faces" means "not checked". */
   facesChecked: boolean
+  /** Signals for telling screenshots and graphics apart from camera photos. */
+  graphic: {
+    flat: number
+    top16: number
+    /** The file name says screenshot. */
+    named: boolean
+    /** The file carries the "Screenshot" tag iPhones and Macs write. */
+    tagged: boolean
+  }
   previewSource?: string
   timings: Record<string, number>
 }
