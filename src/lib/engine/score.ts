@@ -179,6 +179,12 @@ export function cull(all: EnginePhoto[], settings: CullSettings): CullResult {
 
     const top = scored[0]
     const size = scored.length
+    const second = scored[1]
+    const twins =
+      second !== undefined &&
+      hamming(top.d.p.f.dhash, second.d.p.f.dhash) <= 6 &&
+      (cosine(top.d.p.f.embedding, second.d.p.f.embedding) ?? 1) >= 0.96
+    const closeCall = second !== undefined && top.score - second.score < 0.03 && !twins
     scored.forEach((x, rank) => {
       const { d } = x
       const issues: IssueCode[] = []
@@ -218,9 +224,10 @@ export function cull(all: EnginePhoto[], settings: CullSettings): CullResult {
       } else {
         verdict = 'reject'
       }
-      // A close second deserves a human look.
-      if (rank === 0 && size > 1 && top.score - scored[1].score < 0.03) needsLook = true
-      if (rank === 1 && top.score - x.score < 0.03) needsLook = true
+      // A close second deserves a human look, unless the two frames are near
+      // identical (a fast burst): then either one is the same photo.
+      if (rank === 0 && closeCall) needsLook = true
+      if (rank === 1 && closeCall) needsLook = true
       if (size === 1 && softVsShoot && !severe) needsLook = true
 
       // Reasons, most important first.
@@ -257,7 +264,7 @@ export function cull(all: EnginePhoto[], settings: CullSettings): CullResult {
       if (d.exposure.over) reasons.push({ text: `Blown highlights (${d.exposure.clipPct}% of the frame)`, tone: 'bad' })
       if (d.exposure.under) reasons.push({ text: 'Underexposed', tone: 'bad' })
       if (issues.includes('duplicate')) reasons.push({ text: `Near duplicate of ${top.d.p.name}`, tone: 'info' })
-      if (needsLook && rank <= 1 && size > 1 && top.score - (scored[1]?.score ?? 0) < 0.03) {
+      if (needsLook && rank <= 1 && closeCall) {
         reasons.push({ text: rank === 0 ? `Close call with ${scored[1].d.p.name}` : `Close call with ${top.d.p.name}`, tone: 'info' })
       }
 

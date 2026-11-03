@@ -137,6 +137,7 @@ React 19, TypeScript, Vite, Zustand, TanStack Virtual, MediaPipe Tasks Vision, i
 ## Credits and licenses
 
 - Keeper is MIT licensed.
+- Sample shoot: frames from the [HDR+ Burst Photography Dataset](https://hdrplusdata.org) by Google (Hasinoff et al., SIGGRAPH Asia 2016), developed from the raw bursts and resized, shared under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The three screenshots in the set were made for Keeper. See `public/samples/LICENSE.txt`.
 - Face Landmarker and MobileNetV3 image embedder models and the MediaPipe runtime: Apache 2.0, Google.
 - libheif-js: LGPL 3.0, loaded on demand as a separate file only for HEIC in browsers without native support.
 - Inter typeface: SIL Open Font License 1.1.

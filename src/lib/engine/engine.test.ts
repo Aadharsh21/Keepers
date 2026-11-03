@@ -158,12 +158,24 @@ describe('culling decisions', () => {
 
   it('marks close calls for a human look', () => {
     const a = scene()
+    // Same moment, visibly different frames (a pose change), almost equal scores.
     const photos = [
       photo('c1', { emb: near(a, 0.05), t: 0, faces: [face({ eyeSharp: 1000 })] }),
-      photo('c2', { emb: near(a, 0.05), t: 300, faces: [face({ eyeSharp: 990 })] }),
+      photo('c2', { emb: near(a, 0.25), t: 300, faces: [face({ eyeSharp: 990 })], hash: [0x0f0f0f0f, 0x3333ffff] }),
     ]
     const { byId } = cull(photos, DEFAULT_SETTINGS)
     expect(byId.get('c1')!.needsLook || byId.get('c2')!.needsLook).toBe(true)
+  })
+
+  it('does not ask for a look when the top two frames are near identical', () => {
+    const a = scene()
+    const photos = [
+      photo('t1', { emb: near(a, 0.02), t: 0, faces: [face({ eyeSharp: 1000 })] }),
+      photo('t2', { emb: near(a, 0.02), t: 40, faces: [face({ eyeSharp: 995 })] }),
+    ]
+    const { byId } = cull(photos, DEFAULT_SETTINGS)
+    expect(byId.get('t1')!.needsLook).toBe(false)
+    expect(byId.get('t2')!.needsLook).toBe(false)
   })
 })
 
