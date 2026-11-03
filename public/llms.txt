@@ -2,5 +2,5 @@
 
 > Keeper is a free photo culling web app. It groups bursts into moments, checks focus on the eyes, catches blinks and blown highlights, and picks the best frame of every moment. All analysis runs in the browser; photos are never uploaded.
 
-- [Open the app](https://keeper-cull.netlify.app/cull): pick a folder of JPEG, HEIC or RAW photos to cull.
+- [Open the app](https://keepers-cull.netlify.app/cull): pick a folder of JPEG, HEIC or RAW photos to cull.
 - [Source code](https://github.com/Aadharsh21/Keepers): React, TypeScript, MediaPipe, MIT license.

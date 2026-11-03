@@ -2,7 +2,7 @@
 
 **Cull a whole photo shoot in your browser.** Keeper groups bursts into moments, checks focus on the eyes, catches blinks and blown highlights, and picks the best frame of every moment. Every decision comes with a reason, and your photos never leave your computer.
 
-**Live:** [keeper-cull.netlify.app](https://keeper-cull.netlify.app)
+**Live:** [keepers-cull.netlify.app](https://keepers-cull.netlify.app)
 
 ![Keeper landing page](docs/landing.png)
 
