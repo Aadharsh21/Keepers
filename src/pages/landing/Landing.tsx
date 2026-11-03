@@ -2,7 +2,7 @@ import { ArrowRight, Copy, EyeOff, FileArchive, Focus, FolderInput, FolderOpen, 
 import { useEffect, useState } from 'react'
 import { Logo } from '../../components/Logo'
 import { ThemeToggle } from '../../components/ThemeToggle'
-import { sampleManifest } from '../../lib/ingest/sample'
+import { sampleManifest, type Manifest } from '../../lib/ingest/sample'
 import { Link } from '../../router'
 import { MomentIllustration } from './MomentIllustration'
 import styles from './Landing.module.css'
@@ -60,9 +60,10 @@ const FAQ = [
 ]
 
 export default function Landing() {
-  const [hasSample, setHasSample] = useState(false)
+  const [sample, setSample] = useState<Manifest | null>(null)
+  const hasSample = !!sample
   useEffect(() => {
-    void sampleManifest().then((m) => setHasSample(!!m))
+    void sampleManifest().then(setSample)
   }, [])
 
   return (
@@ -111,6 +112,19 @@ export default function Landing() {
               )}
             </div>
             <p className={styles.fine}>Free. No sign-up. JPEG, HEIC and RAW from Canon, Sony, Nikon and more.</p>
+            {sample?.credit && (
+              <p className={styles.fine}>
+                Sample photos:{' '}
+                <a href={sample.credit.url} target="_blank" rel="noreferrer">
+                  {sample.credit.text}
+                </a>
+                ,{' '}
+                <a href={sample.credit.licenseUrl} target="_blank" rel="noreferrer">
+                  {sample.credit.license}
+                </a>
+                .
+              </p>
+            )}
           </div>
           <div className={styles.heroArt}>
             <MomentIllustration />

@@ -1,7 +1,9 @@
 import type { FileWithPath } from './collect'
 
-interface Manifest {
+export interface Manifest {
   name: string
+  /** Attribution the sample photos' license asks for. */
+  credit?: { text: string; url: string; license: string; licenseUrl: string }
   files: { name: string; lastModified?: number }[]
 }
 

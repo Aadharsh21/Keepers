@@ -4,6 +4,7 @@ import { Dialog } from '../../components/Dialog'
 import { Logo } from '../../components/Logo'
 import { ThemeToggle } from '../../components/ThemeToggle'
 import type { Grouping, Strictness } from '../../lib/engine/types'
+import { sampleManifest, type Manifest } from '../../lib/ingest/sample'
 import { buildView } from '../../lib/store/selectors'
 import { setPrefs, usePrefs } from '../../lib/store/prefs'
 import { closeShoot, select, setCullSettings, setFilter, setVerdict, setVerdicts, useSession, type Filter } from '../../lib/store/session'
@@ -82,6 +83,10 @@ export function Review() {
   const [viewerOpen, setViewerOpen] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
   const [exportOpen, setExportOpen] = useState(false)
+  const [credit, setCredit] = useState<Manifest['credit'] | null>(null)
+  useEffect(() => {
+    if (s.isSample) void sampleManifest().then((m) => setCredit(m?.credit ?? null))
+  }, [s.isSample])
 
   const result = s.result!
   const view = useMemo(() => buildView(result.moments, result.byId, s.overrides, s.entries, s.filter), [result, s.overrides, s.entries, s.filter])
@@ -226,6 +231,15 @@ export function Review() {
       />
       {s.vision && !s.vision.available && (
         <p className={styles.visionNote}>Face and blink checks could not start in this browser, so Keeper is judging focus, exposure and duplicates only.</p>
+      )}
+      {credit && (
+        <p className={styles.visionNote}>
+          This is a sample shoot: real phone bursts from the{' '}
+          <a href={credit.url} target="_blank" rel="noreferrer">
+            {credit.text}
+          </a>{' '}
+          ({credit.license}). Open your own folder any time.
+        </p>
       )}
       {failed > 0 && (
         <p className={styles.visionNote}>
