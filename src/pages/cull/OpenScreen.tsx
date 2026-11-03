@@ -1,4 +1,4 @@
-import { Clock, FolderOpen, Images, LoaderCircle, TriangleAlert, X } from 'lucide-react'
+import { LoaderCircle, TriangleAlert, X } from 'lucide-react'
 import { useEffect, useRef, useState, type DragEvent } from 'react'
 import { ACCEPT_ATTR, FORMAT_LABELS } from '../../lib/formats/detect'
 import { fromDataTransfer, fromDirectoryHandle, fromFileList, type FileWithPath } from '../../lib/ingest/collect'
@@ -121,6 +121,11 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
 
   return (
     <main className={styles.page}>
+      <div className={styles.label}>
+        <p>Open a shoot</p>
+        <p className={styles.dim}>Nothing is uploaded</p>
+      </div>
+      <div className={styles.content}>
       <section
         className={styles.drop}
         data-dragging={dragging || undefined}
@@ -134,22 +139,19 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
         onDrop={onDrop}
         aria-labelledby="open-title"
       >
-        <div className={styles.icon} aria-hidden="true">
-          <Images />
-        </div>
         <h1 id="open-title" className={styles.title}>
-          Open a shoot
+          Pick the folder from your memory card.
         </h1>
         <p className={styles.lede}>
-          Pick the folder you copied from your memory card, or drop it here. Keeper reads every photo on this computer: nothing is uploaded.
+          Or drop it anywhere on this panel. Keeper reads every photo right here on your computer and remembers your decisions in this browser.
         </p>
         <div className={styles.actions}>
           <button type="button" className="btn btn-primary btn-lg" onClick={openFolder} disabled={!!busy}>
-            {busy === 'folder' || busy === 'drop' ? <LoaderCircle className={styles.spin} /> : <FolderOpen />}
+            {(busy === 'folder' || busy === 'drop') && <LoaderCircle className={styles.spin} />}
             {busy === 'folder' || busy === 'drop' ? 'Reading folder' : 'Open a folder'}
           </button>
           <button type="button" className="btn btn-lg" onClick={() => filesInput.current?.click()} disabled={!!busy}>
-            {busy === 'files' ? <LoaderCircle className={styles.spin} /> : <Images />}
+            {busy === 'files' && <LoaderCircle className={styles.spin} />}
             Choose photos
           </button>
         </div>
@@ -220,7 +222,7 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
                   <div className={styles.recentText}>
                     <span className={styles.recentName}>{s.name}</span>
                     <span className={styles.recentMeta}>
-                      <Clock aria-hidden="true" /> {timeAgo(s.updatedAt)} · {s.photoCount.toLocaleString()} photos ·{' '}
+                      {timeAgo(s.updatedAt)} · {s.photoCount.toLocaleString()} photos ·{' '}
                       {s.keepCount.toLocaleString()} keepers
                     </span>
                   </div>
@@ -242,6 +244,7 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
           Tip: in Chrome or Edge, Keeper can also save keepers straight into your folder. In this browser, exports download as a ZIP.
         </p>
       )}
+      </div>
     </main>
   )
 }

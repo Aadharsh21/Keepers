@@ -39,10 +39,14 @@ export function Analyzing() {
     <div className={styles.app}>
       <header className={styles.top}>
         <Logo />
-        <span className={styles.name}>{s.name}</span>
+        <span className={styles.name}>{total.toLocaleString()} photos</span>
         <ThemeToggle />
       </header>
       <section className={styles.panel} aria-live="polite">
+        <div className={styles.label}>
+          <p>Analyzing</p>
+          <p className={styles.dim}>{s.name}</p>
+        </div>
         <div className={styles.headline}>
           <h1 className={styles.title}>
             Analyzing {finished.toLocaleString()} of {total.toLocaleString()} photos

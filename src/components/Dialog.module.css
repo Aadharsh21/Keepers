@@ -1,16 +1,18 @@
 .dialog {
   padding: 0;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--r-lg);
-  background: var(--surface-1);
+  background: var(--bg);
   color: var(--text);
   box-shadow: var(--shadow-pop);
-  width: min(100% - 2rem, 34rem);
+  width: min(100% - 2rem, 36rem);
   max-height: min(100dvh - 2rem, 48rem);
+  font-size: var(--text-sm);
 }
 
 .dialog::backdrop {
   background: var(--overlay);
+  backdrop-filter: blur(6px);
 }
 
 .dialog[open] {
@@ -20,17 +22,17 @@
 @keyframes pop {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    transform: translateY(10px);
   }
 }
 
 .lg {
-  width: min(100% - 2rem, 52rem);
+  width: min(100% - 2rem, 54rem);
 }
 
 .full {
-  width: calc(100vw - 2rem);
-  height: calc(100dvh - 2rem);
+  width: calc(100vw - 2.5rem);
+  height: calc(100dvh - 2.5rem);
   max-width: none;
   max-height: none;
 }
@@ -43,22 +45,24 @@
 }
 
 .full .inner {
-  height: calc(100dvh - 2rem);
+  height: calc(100dvh - 2.5rem);
 }
 
 .header {
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-2) var(--s-2) var(--s-2) var(--s-5);
+  min-height: 3.75rem;
+  margin: 0 var(--s-5);
   border-bottom: 1px solid var(--border);
 }
 
 .title {
   flex: 1;
-  font-size: var(--text-lg);
-  font-weight: 650;
-  letter-spacing: -0.01em;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: var(--leading);
 }
 
 .body {
@@ -73,7 +77,8 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: var(--s-2);
-  padding: var(--s-3) var(--s-5);
+  margin: 0 var(--s-5);
+  padding: var(--s-3) 0;
   border-top: 1px solid var(--border);
 }
 

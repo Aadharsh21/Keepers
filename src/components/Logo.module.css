@@ -1,27 +1,17 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: var(--s-2);
+  gap: var(--s-3);
   min-height: var(--control-h);
   color: var(--text);
   text-decoration: none;
-  border-radius: var(--r-sm);
 }
 
 .mark {
   flex: none;
 }
 
-.tile {
-  fill: light-dark(#18191b, #ecedee);
-}
-
-.glyph {
-  fill: var(--accent);
-}
-
 .word {
-  font-size: var(--text-lg);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: var(--text-sm);
+  font-weight: 450;
 }

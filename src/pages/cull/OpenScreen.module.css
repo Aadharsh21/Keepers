@@ -1,79 +1,85 @@
+/* Label column on the left, the open panel on the right */
 .page {
   display: grid;
-  align-content: start;
-  gap: var(--s-5);
-  width: min(100%, 46rem);
-  margin: 0 auto;
-  padding: var(--s-10) var(--s-4) var(--s-12);
+  grid-template-columns: var(--label-col) minmax(0, 1fr);
+  column-gap: var(--gutter);
+  align-items: start;
+  padding: clamp(3rem, 12vh, 8rem) var(--gutter) var(--s-16);
+  font-size: var(--text-sm);
 }
 
+.label {
+  padding-top: var(--s-2);
+}
+
+.dim {
+  color: var(--text-3);
+}
+
+.content {
+  display: grid;
+  gap: var(--s-6);
+  min-width: 0;
+  max-width: 52rem;
+}
+
+/* The drop target is one large quiet tile */
 .drop {
   display: grid;
-  justify-items: center;
-  gap: var(--s-3);
-  padding: var(--s-10) var(--s-6);
-  border: 1.5px dashed var(--border-strong);
+  justify-items: start;
+  gap: var(--s-4);
+  padding: var(--s-10) var(--s-8);
+  border: 1px dashed var(--border-strong);
   border-radius: var(--r-lg);
-  background: var(--surface-1);
-  text-align: center;
+  background: var(--surface-2);
   transition:
     border-color var(--fast) var(--ease),
     background-color var(--fast) var(--ease);
 }
 
 .drop[data-dragging] {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.icon {
-  display: grid;
-  place-items: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  margin-bottom: var(--s-1);
-  border-radius: var(--r-md);
-  background: var(--accent-soft);
-  color: var(--accent-text);
-}
-
-.icon svg {
-  width: 1.625rem;
-  height: 1.625rem;
+  border-color: var(--text);
+  background: var(--surface-3);
 }
 
 .title {
   font-size: var(--text-2xl);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 .lede {
   max-width: 34rem;
-  color: var(--text-2);
+  color: var(--text-3);
+  font-size: var(--text-md);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: var(--s-3);
   margin-top: var(--s-2);
 }
 
 .sample {
-  color: var(--text-2);
-  font-size: var(--text-sm);
+  color: var(--text-3);
 }
 
 .linkBtn {
   min-height: 2.75rem;
-  padding: 0 var(--s-1);
+  padding: 0;
   border: 0;
   background: none;
-  color: var(--accent-text);
-  font-weight: 600;
+  color: var(--text);
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 5px;
   cursor: pointer;
+}
+
+.linkBtn:hover {
+  text-decoration-color: currentColor;
 }
 
 .linkBtn:disabled {
@@ -82,7 +88,7 @@
 }
 
 .formats {
-  max-width: 34rem;
+  padding-top: var(--s-4);
   color: var(--text-3);
   font-size: var(--text-xs);
 }
@@ -101,16 +107,16 @@
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4);
-  border: 1px solid color-mix(in srgb, var(--reject) 40%, transparent);
-  border-radius: var(--r-md);
-  background: var(--reject-soft);
+  padding: var(--s-2) 0;
+  border-top: 1px solid var(--reject);
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
 }
 
 .notice > svg {
   flex: none;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   color: var(--reject);
 }
 
@@ -118,24 +124,27 @@
   flex: 1;
 }
 
+/* Recent shoots read like a table */
 .recent {
   display: grid;
-  gap: var(--s-3);
+  gap: var(--s-2);
 }
 
 .recentSkeleton {
-  height: 4.5rem;
-  border-radius: var(--r-md);
+  height: 3rem;
+  border-radius: var(--r-sm);
 }
 
 .recentTitle {
-  font-size: var(--text-md);
-  font-weight: 650;
+  color: var(--text-3);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: var(--leading);
 }
 
 .recentList {
   display: grid;
-  gap: var(--s-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -145,52 +154,53 @@
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  background: var(--surface-1);
+  min-height: 3.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.recentItem:first-child {
+  border-top: 1px solid var(--border);
 }
 
 .recentText {
-  display: grid;
+  display: flex;
   flex: 1;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--s-4);
   min-width: 0;
 }
 
 .recentName {
   overflow: hidden;
-  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .recentMeta {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-1);
-  color: var(--text-2);
-  font-size: var(--text-sm);
-}
-
-.recentMeta svg {
-  width: 0.875rem;
-  height: 0.875rem;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
 }
 
 .browserNote {
-  color: var(--text-2);
-  font-size: var(--text-sm);
-  text-align: center;
+  color: var(--text-3);
+}
+
+@media (max-width: 60em) {
+  .page {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s-6);
+    padding-top: var(--s-8);
+  }
+
+  .label {
+    padding-top: 0;
+  }
 }
 
 @media (max-width: 40em) {
-  .page {
-    padding-top: var(--s-4);
-  }
-
   .drop {
-    padding: var(--s-8) var(--s-4);
+    padding: var(--s-8) var(--s-5);
   }
 
   .actions {

@@ -1,20 +1,21 @@
 import { Link } from '../router'
 import styles from './Logo.module.css'
 
-export function LogoMark({ size = 28 }: { size?: number }) {
+/** Viewfinder corners around a focus point. Drawn in currentColor. */
+export function LogoMark({ size = 22 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" className={styles.mark}>
-      <rect width="32" height="32" rx="8" className={styles.tile} />
-      <path d="M9 7h4v7.2L19.6 7H24l-7 7.4L24.4 25H19.7l-5.2-7.6-1.5 1.6V25H9z" className={styles.glyph} />
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" className={styles.mark} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
+      <path d="M3 8.5V3h5.5M15.5 3H21v5.5M21 15.5V21h-5.5M8.5 21H3v-5.5" />
+      <circle cx="12" cy="12" r="2.25" fill="currentColor" stroke="none" />
     </svg>
   )
 }
 
-export function Logo() {
+export function Logo({ label }: { label?: string }) {
   return (
     <Link href="/" className={styles.logo} aria-label="Keeper home">
       <LogoMark />
-      <span className={styles.word}>Keeper</span>
+      {label !== '' && <span className={styles.word}>{label ?? 'Keeper'}</span>}
     </Link>
   )
 }

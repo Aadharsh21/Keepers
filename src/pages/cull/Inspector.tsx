@@ -100,7 +100,7 @@ export function Inspector({ entry, assessment, moment, verdict, overridden }: Pr
         <div className={styles.verdicts} role="group" aria-label="Decision">
           <button
             type="button"
-            className={`btn ${verdict === 'keep' ? 'btn-keep' : ''}`}
+            className="btn btn-keep"
             aria-pressed={verdict === 'keep'}
             onClick={() => setVerdict(id, 'keep')}
           >
@@ -108,7 +108,7 @@ export function Inspector({ entry, assessment, moment, verdict, overridden }: Pr
           </button>
           <button
             type="button"
-            className={`btn ${verdict === 'reject' ? 'btn-reject' : ''}`}
+            className="btn btn-reject"
             aria-pressed={verdict === 'reject'}
             onClick={() => setVerdict(id, 'reject')}
           >

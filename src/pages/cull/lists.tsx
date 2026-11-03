@@ -187,7 +187,7 @@ export function MomentList({
                       verdict={view.verdictOf(id)}
                       overridden={id in overrides}
                       selected={id === selectedId}
-                      momentSize={ids.length}
+                      momentSize={m.kind === 'graphics' ? undefined : ids.length}
                       height={strip}
                       onSelect={onSelect}
                       onOpen={onOpen}

@@ -7,12 +7,13 @@
   container-type: inline-size;
 }
 
+/* A moment: one line of type over its frames, hairline between moments */
 .moment {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  padding: var(--s-4) var(--s-6) var(--s-3);
+  padding: var(--s-4) var(--s-6) var(--s-5);
   border-bottom: 1px solid var(--border);
 }
 
@@ -22,28 +23,25 @@
   gap: var(--s-3);
   min-height: 2.25rem;
   margin-bottom: var(--s-2);
+  font-size: var(--text-sm);
 }
 
 .momentTitle {
-  font-weight: 650;
+  color: var(--text);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .momentMeta {
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  color: var(--text-2);
-  font-size: var(--text-sm);
+  color: var(--text-3);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.momentTitle {
-  white-space: nowrap;
-}
-
-/* Narrow list: the compare button keeps its icon and drops the word. */
+/* Narrow list: header buttons keep their icon and drop the word. */
 @container (max-width: 30em) {
   .compare span {
     display: none;
@@ -56,7 +54,7 @@
 
 .strip {
   display: flex;
-  gap: var(--s-2);
+  gap: 0.625rem;
   padding: 4px 4px 4px 2px;
   margin-left: -2px;
   overflow-x: auto;
@@ -83,18 +81,17 @@
   gap: var(--s-2);
   min-height: 60%;
   padding: var(--s-10) var(--s-6);
-  color: var(--text-2);
+  color: var(--text-3);
   text-align: center;
 }
 
 .emptyTitle {
   color: var(--text);
-  font-size: var(--text-lg);
-  font-weight: 650;
+  font-size: var(--text-md);
 }
 
 @media (max-width: 45em) {
   .moment {
-    padding: var(--s-3) var(--s-3) 0;
+    padding: var(--s-3) var(--gutter) var(--s-4);
   }
 }

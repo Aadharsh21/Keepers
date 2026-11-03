@@ -1,55 +1,58 @@
 .summary {
-  margin-bottom: var(--s-4);
-  color: var(--text-2);
-  font-size: var(--text-sm);
+  margin-bottom: var(--s-2);
+  color: var(--text-3);
   font-variant-numeric: tabular-nums;
 }
 
+/* Options are rows split by hairlines, not boxes */
 .options {
   display: grid;
-  gap: var(--s-3);
 }
 
 .option {
-  display: flex;
-  gap: var(--s-4);
-  padding: var(--s-4);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  background: var(--surface-1);
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  column-gap: var(--s-5);
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.option:last-child {
+  border-bottom: 0;
 }
 
 .optionIcon {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--r-md);
-  background: var(--surface-2);
-  color: var(--accent-text);
-}
-
-.optionIcon svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  display: none;
 }
 
 .optionBody {
   display: grid;
-  flex: 1;
-  justify-items: start;
-  gap: var(--s-3);
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   min-width: 0;
 }
 
+/* The title spans the rows its column fills. Spacing sits on the items, so rows left empty add nothing. */
 .optionBody h3 {
-  font-size: var(--text-md);
+  grid-column: 1;
+  grid-row: 1 / span 6;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: var(--leading);
+}
+
+.optionBody > :not(h3) {
+  grid-column: 2;
+  justify-self: start;
+}
+
+.optionBody > :not(h3) + :not(h3) {
+  margin-top: var(--s-3);
 }
 
 .optionBody > p {
-  color: var(--text-2);
-  font-size: var(--text-sm);
+  color: var(--text-3);
 }
 
 .controls {
@@ -64,20 +67,17 @@
   align-items: center;
   gap: var(--s-2);
   min-height: var(--control-h-sm);
-  font-size: var(--text-sm);
   cursor: pointer;
 }
 
 .check input {
-  width: 1.125rem;
-  height: 1.125rem;
-  accent-color: var(--accent);
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--text);
 }
 
 .note {
-  padding: var(--s-2) var(--s-3);
-  border-radius: var(--r-sm);
-  background: var(--surface-2);
+  color: var(--text-3);
 }
 
 .progress {
@@ -91,24 +91,22 @@
 .bar {
   position: relative;
   flex: 1 1 10rem;
-  height: 0.5rem;
+  height: 1px;
   overflow: hidden;
-  border-radius: var(--r-full);
-  background: var(--surface-3);
+  background: var(--border-strong);
 }
 
 .bar span {
   position: absolute;
   inset: 0 auto 0 0;
-  background: var(--accent);
+  background: var(--text);
   transition: width var(--normal) var(--ease);
 }
 
 .progressText {
   overflow: hidden;
   max-width: 100%;
-  color: var(--text-2);
-  font-size: var(--text-sm);
+  color: var(--text-3);
   text-overflow: ellipsis;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
@@ -118,21 +116,14 @@
   display: flex;
   gap: var(--s-2);
   width: 100%;
-  padding: var(--s-3);
-  border-radius: var(--r-md);
-  background: var(--reject-soft);
-  font-size: var(--text-sm);
-}
-
-.outcome[data-ok] {
-  background: var(--keep-soft);
+  color: var(--text);
 }
 
 .outcome > svg {
   flex: none;
-  width: 1.125rem;
-  height: 1.125rem;
-  margin-top: 0.1rem;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.3rem;
   color: var(--reject);
 }
 
@@ -142,7 +133,7 @@
 
 .warning {
   margin-top: var(--s-1);
-  color: var(--text-2);
+  color: var(--text-3);
 }
 
 .spin {
@@ -155,13 +146,6 @@
   }
 }
 
-@media (max-width: 35em) {
-  .option {
-    flex-direction: column;
-    gap: var(--s-3);
-  }
-}
-
 .star {
   display: inline-flex;
   align-items: center;
@@ -169,11 +153,26 @@
 }
 
 .star svg {
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 0.75rem;
+  height: 0.75rem;
 }
 
 .star[aria-pressed='true'] svg {
-  color: var(--accent-text);
   fill: currentColor;
+}
+
+@media (max-width: 40em) {
+  .option {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .optionBody h3,
+  .optionBody > :not(h3) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .optionBody h3 + * {
+    margin-top: var(--s-2);
+  }
 }
