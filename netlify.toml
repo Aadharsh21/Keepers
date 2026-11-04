@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Anonymous usage counts go to PostHog through this site, so the CSP can stay 'self' only.
+[[redirects]]
+  from = "/ingest/*"
+  to = "https://us.i.posthog.com/:splat"
+  status = 200
+  force = true
+
 # The app lives at /cull; serve the single-page shell there. Anything else
 # that is not a real file gets the 404 page (missing old chunks fail cleanly).
 [[redirects]]

@@ -8,6 +8,7 @@ import { setPrefs, usePrefs } from '../../lib/store/prefs'
 import { finalVerdict, useSession } from '../../lib/store/session'
 import type { PhotoSource } from '../../lib/types'
 import styles from './ExportDialog.module.css'
+import { bucket, track } from '../../lib/analytics'
 
 type Job = 'ratings' | 'copy' | 'zip'
 
@@ -54,7 +55,9 @@ export function ExportDialog({ open, onClose }: { open: boolean; onClose: () => 
     abort.current = new AbortController()
     try {
       const result = await fn(abort.current.signal)
-      setOutcome({ ...result, job, ok: !abort.current.signal.aborted })
+      const ok = !abort.current.signal.aborted
+      setOutcome({ ...result, job, ok })
+      track('shoot_exported', { job, photos: bucket(job === 'ratings' ? rated.length : keepers.length), ok })
     } catch (err) {
       const e = err as DOMException
       if (e?.name === 'AbortError') setOutcome(null)

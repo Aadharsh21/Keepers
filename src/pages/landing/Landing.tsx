@@ -286,7 +286,7 @@ export default function Landing() {
                 <sup>1</sup> Photos are read from your disk and never uploaded.
               </li>
               <li>
-                <sup>2</sup> No account, no tracking, nothing to sign up for.
+                <sup>2</sup> No account, no ads, nothing to sign up for. Only anonymous page and shoot counts.
               </li>
               <li>
                 <sup>3</sup> After your first visit, culling works with no connection.

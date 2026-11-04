@@ -28,6 +28,7 @@
     "idb": "8.0.4",
     "libheif-js": "1.23.2",
     "lucide-react": "1.59.0",
+    "posthog-js": "1.445.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "zustand": "5.0.15"

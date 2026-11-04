@@ -6,6 +6,7 @@ import type { PhotoFeatures, PhotoSource, Verdict } from '../types'
 import { AnalyzerPool, JobError } from '../worker/pool'
 import { getSession, loadCached, saveCached, saveSession } from './db'
 import { getPrefs, setPrefs } from './prefs'
+import { bucket, track } from '../analytics'
 
 export type Phase = 'empty' | 'analyzing' | 'review'
 
@@ -222,6 +223,13 @@ function finishAnalysis() {
   const firstMoment = result.moments[0]
   useSession.setState({ phase: 'review', result, selectedId: s.selectedId ?? firstMoment?.photoIds[0] ?? null })
   persist()
+  track('shoot_culled', {
+    photos: bucket(s.progress.total),
+    failed: bucket(s.progress.failed),
+    moments: bucket(result.moments.length),
+    sample: s.isSample,
+    seconds: Math.round((performance.now() - s.progress.startedAt) / 1000),
+  })
 }
 
 export function setCullSettings(patch: Partial<CullSettings>): void {
