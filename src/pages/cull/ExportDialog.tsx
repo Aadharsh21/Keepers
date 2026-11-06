@@ -65,11 +65,11 @@ export function ExportDialog({ open, onClose }: { open: boolean; onClose: () => 
         console.error(err)
         const message =
           e?.name === 'NotAllowedError' || e?.name === 'SecurityError'
-            ? 'Keeper was not allowed to save there. Try again and choose Allow, or pick a different folder.'
+            ? 'Keepers was not allowed to save there. Try again and choose Allow, or pick a different folder.'
             : e?.name === 'QuotaExceededError'
               ? 'There is not enough free space on that drive. Free some space or pick another drive.'
               : e?.name === 'NotFoundError'
-                ? 'A file or folder moved while Keeper was exporting. Reopen the shoot and try again.'
+                ? 'A file or folder moved while Keepers was exporting. Reopen the shoot and try again.'
                 : err instanceof Error && err.name === 'Error' && err.message
                   ? err.message
                   : 'The export stopped before it finished. Check the destination and try again.'

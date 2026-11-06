@@ -9,7 +9,7 @@ function Card() {
   return (
     <div style={{ position: 'relative', width: 1200, height: 630, overflow: 'hidden', background: 'var(--bg)', color: 'var(--text)' }}>
       <div style={{ position: 'absolute', left: 56, top: 52, display: 'flex', alignItems: 'center', gap: 14, fontSize: 24 }}>
-        <LogoMark size={30} /> Keeper
+        <LogoMark size={30} /> Keepers
       </div>
       <div style={{ position: 'absolute', left: 56, bottom: 56, width: 500, display: 'grid', gap: 20 }}>
         <h1 style={{ fontSize: 58, fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.04em' }}>Find your keepers. Skip the grind.</h1>

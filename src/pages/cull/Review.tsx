@@ -29,7 +29,7 @@ const FILTERS: { id: Filter; label: string; icon: typeof Flag; group: 'show' | '
 const EMPTY: Partial<Record<Filter, [string, string]>> = {
   keep: ['No keepers yet', 'Mark photos with P or the Keep button and they show up here.'],
   reject: ['Nothing rejected', 'Every photo in this shoot is a keeper right now.'],
-  eyes: ['No closed eyes found', 'Keeper did not find any blinks in this shoot.'],
+  eyes: ['No closed eyes found', 'Keepers did not find any blinks in this shoot.'],
   soft: ['No soft frames', 'Every frame is about as sharp as its moment allows.'],
   exposure: ['No exposure problems', 'No blown highlights or very dark frames.'],
   screens: ['No screenshots', 'Everything here is a camera photo.'],
@@ -123,7 +123,7 @@ export function Review() {
       if (view.mode !== 'moments' || !view.moments.length) return move(delta)
       const current = selected ? view.moments.findIndex((m) => m.photoIds.includes(selected)) : -1
       const target = view.moments[Math.min(view.moments.length - 1, Math.max(0, current + delta))]
-      // Land on Keeper's pick in that moment.
+      // Land on Keepers' pick in that moment.
       select(target.photoIds[0])
     },
     [view, selected, move],
@@ -230,7 +230,7 @@ export function Review() {
         hint={GROUP_HINT[prefs.cull.grouping]}
       />
       {s.vision && !s.vision.available && (
-        <p className={styles.visionNote}>Face and blink checks could not start in this browser, so Keeper is judging focus, exposure and duplicates only.</p>
+        <p className={styles.visionNote}>Face and blink checks could not start in this browser, so Keepers is judging focus, exposure and duplicates only.</p>
       )}
       {credit && (
         <p className={styles.visionNote}>
@@ -383,7 +383,7 @@ export function Review() {
               [['↑', '↓'], 'Previous or next moment'],
               [['P'], 'Keep'],
               [['X'], 'Reject'],
-              [['U'], "Undo your change (back to Keeper's pick)"],
+              [['U'], "Undo your change (back to Keepers' pick)"],
               [['C'], 'Compare every frame in the moment'],
               [['F'], 'Show faces and face boxes'],
               [['E'], 'Export'],

@@ -128,7 +128,7 @@ function setAside(graphics: EnginePhoto[], byId: Map<string, Assessment>): Momen
       needsLook: false,
       reasons: [
         { text: GRAPHIC_REASON[graphicKind(p)!], tone: 'info' },
-        { text: 'Keeper leaves screenshots out of culling, so keep or reject them yourself', tone: 'info' },
+        { text: 'Keepers leaves screenshots out of culling, so keep or reject them yourself', tone: 'info' },
       ],
       issues: ['screenshot'],
       focusRel: 1,

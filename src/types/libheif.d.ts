@@ -1,4 +1,4 @@
-// Minimal types for the parts of libheif-js that Keeper uses (HEIC fallback decoder).
+// Minimal types for the parts of libheif-js that Keepers uses (HEIC fallback decoder).
 declare module 'libheif-js/libheif-wasm/libheif-bundle.mjs' {
   export interface HeifImage {
     get_width(): number

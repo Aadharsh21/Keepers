@@ -35,7 +35,7 @@ describe('XMP sidecars', () => {
     expect(merged).toContain('Blue')
   })
 
-  it('clears only the red label Keeper wrote for rejects', () => {
+  it('clears only the red label Keepers wrote for rejects', () => {
     const merged = mergeSidecar(lightroom('Red'), { rating: 4, clearLabelIf: 'Red' })!
     expect(merged).not.toContain('Red')
     expect(merged).toContain('xmp:Rating="4"')

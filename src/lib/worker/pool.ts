@@ -163,7 +163,7 @@ export class AnalyzerPool {
         slot.busy = job
         const limit = job.message.type === 'preview' ? AnalyzerPool.previewTimeoutMs : AnalyzerPool.analyzeTimeoutMs
         slot.watchdog = setTimeout(
-          () => this.restart(slot, new JobError('timeout', 'Keeper took too long reading this photo and skipped it.')),
+          () => this.restart(slot, new JobError('timeout', 'Keepers took too long reading this photo and skipped it.')),
           limit,
         )
         slot.worker.postMessage(job.message)

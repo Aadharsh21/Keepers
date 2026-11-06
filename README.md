@@ -1,14 +1,14 @@
-# Keeper
+# Keepers
 
-**Cull a whole photo shoot in your browser.** Keeper groups bursts into moments, checks focus on the eyes, catches blinks and blown highlights, and picks the best frame of every moment. Every decision comes with a reason, and your photos never leave your computer.
+**Cull a whole photo shoot in your browser.** Keepers groups bursts into moments, checks focus on the eyes, catches blinks and blown highlights, and picks the best frame of every moment. Every decision comes with a reason, and your photos never leave your computer.
 
 **Live:** [keepers-cull.netlify.app](https://keepers-cull.netlify.app)
 
-![Keeper landing page](docs/landing.png)
+![Keepers landing page](docs/landing.png)
 
 ## Why
 
-I take photos, and after a shoot I come home with hundreds of near-identical frames. Finding the keepers means clicking through them one by one for hours, and the culling often takes longer than the shoot. Photographers I talked to described the same backlog. Keeper does the first pass so you only judge the close calls.
+I take photos, and after a shoot I come home with hundreds of near-identical frames. Finding the keepers means clicking through them one by one for hours, and the culling often takes longer than the shoot. Photographers I talked to described the same backlog. Keepers does the first pass so you only judge the close calls.
 
 ## What it does
 
@@ -20,7 +20,7 @@ I take photos, and after a shoot I come home with hundreds of near-identical fra
 - **Exports to your workflow.** Star ratings and labels in `.xmp` sidecars for Lightroom and Capture One (merged into existing sidecars, never overwriting edits), a copy of the keepers in any folder, or a streamed ZIP.
 - **Remembers.** Analysis is cached per file in IndexedDB, so reopening a shoot is instant, and your decisions survive reloads.
 - **Private by design.** All analysis runs on your machine in WebAssembly. No uploads, no account, and a strict Content Security Policy.
-- **Works offline and installs like an app.** A service worker generated at build time precaches the app shell and caches the versioned models, so after one visit Keeper culls with no connection.
+- **Works offline and installs like an app.** A service worker generated at build time precaches the app shell and caches the versioned models, so after one visit Keepers culls with no connection.
 
 ## How it works
 
@@ -72,7 +72,7 @@ Background faces smaller than 15% of the largest face are ignored. The best fram
 
 ## Measuring accuracy
 
-`scripts/eval.mjs` runs the real pipeline in headless Chromium on a shoot you have already culled, and compares Keeper's picks with yours:
+`scripts/eval.mjs` runs the real pipeline in headless Chromium on a shoot you have already culled, and compares Keepers' picks with yours:
 
 ```bash
 npx playwright install chromium
@@ -80,7 +80,7 @@ npm run eval -- --shoot ~/Pictures/smith-wedding --picks ~/Pictures/smith-weddin
 npm run eval -- --shoot ~/Pictures/smith-wedding --xmp-min-rating 1
 ```
 
-It reports precision, recall, F1, reject agreement and the **moment hit rate**: in how many moments that contain one of your picks Keeper also kept one of them. Results go to `eval-output/report.md`, which is not committed.
+It reports precision, recall, F1, reject agreement and the **moment hit rate**: in how many moments that contain one of your picks Keepers also kept one of them. Results go to `eval-output/report.md`, which is not committed.
 
 ## Performance notes
 
@@ -136,8 +136,8 @@ React 19, TypeScript, Vite, Zustand, TanStack Virtual, MediaPipe Tasks Vision, i
 
 ## Credits and licenses
 
-- Keeper is MIT licensed.
-- Sample shoot: frames from the [HDR+ Burst Photography Dataset](https://hdrplusdata.org) by Google (Hasinoff et al., SIGGRAPH Asia 2016), developed from the raw bursts and resized, shared under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The three screenshots in the set were made for Keeper. See `public/samples/LICENSE.txt`.
+- Keepers is MIT licensed.
+- Sample shoot: frames from the [HDR+ Burst Photography Dataset](https://hdrplusdata.org) by Google (Hasinoff et al., SIGGRAPH Asia 2016), developed from the raw bursts and resized, shared under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The three screenshots in the set were made for Keepers. See `public/samples/LICENSE.txt`.
 - Face Landmarker and MobileNetV3 image embedder models and the MediaPipe runtime: Apache 2.0, Google.
 - libheif-js: LGPL 3.0, loaded on demand as a separate file only for HEIC in browsers without native support.
 - Inter typeface: SIL Open Font License 1.1.

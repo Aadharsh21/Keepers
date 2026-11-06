@@ -41,7 +41,7 @@ describe('buildView', () => {
     expect(v.nav).toEqual(['a', 'b', 'c'])
   })
 
-  it('applies a person’s overrides on top of Keeper’s picks', () => {
+  it('applies a person’s overrides on top of Keepers’ picks', () => {
     const v = buildView(moments, byId, { b: 'keep', c: 'reject' }, entries, 'keep')
     expect(v.mode).toBe('grid')
     expect(v.photos).toEqual(['a', 'b'])

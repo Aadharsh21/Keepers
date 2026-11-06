@@ -1,4 +1,4 @@
-// Dev-only page. scripts/eval.mjs drives it with Playwright to run Keeper's
+// Dev-only page. scripts/eval.mjs drives it with Playwright to run Keepers'
 // real pipeline (same pairing, analysis and scoring as the app) on a folder.
 import { cull } from '../src/lib/engine/score'
 import { DEFAULT_SETTINGS, type CullSettings, type EnginePhoto } from '../src/lib/engine/types'

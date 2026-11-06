@@ -15,7 +15,7 @@ export default tseslint.config(
     plugins: { 'react-hooks': reactHooks },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      // Informational only: Keeper does not run the React Compiler.
+      // Informational only: Keepers does not run the React Compiler.
       'react-hooks/incompatible-library': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },

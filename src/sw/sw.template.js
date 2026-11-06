@@ -1,6 +1,6 @@
-/* Keeper service worker. Generated at build time from src/sw/sw.template.js.
+/* Keepers service worker. Generated at build time from src/sw/sw.template.js.
  *
- * After the first visit to the app, Keeper works offline:
+ * After the first visit to the app, Keepers works offline:
  *  - the app shell is precached (this build's hashed files),
  *  - the face and image models and the MediaPipe runtime are cached the first
  *    time they load (their URLs carry a version, so they never go stale),

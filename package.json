@@ -2,7 +2,7 @@
   "name": "keeper",
   "private": true,
   "version": "0.1.0",
-  "description": "Cull a whole photo shoot in your browser: Keeper groups bursts, checks focus and blinks, and picks the best frame of every moment.",
+  "description": "Cull a whole photo shoot in your browser: Keepers groups bursts, checks focus and blinks, and picks the best frame of every moment.",
   "type": "module",
   "license": "MIT",
   "author": "Aadharsh Arunn",

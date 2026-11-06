@@ -66,7 +66,7 @@ export function Analyzing() {
           </p>
           <p className={styles.detail}>Checking focus on the eyes, blinks, exposure, and which shots are near duplicates. Your photos stay on this computer.</p>
           {s.vision && !s.vision.available && (
-            <p className={styles.warn}>Face and blink checks could not start in this browser. Keeper will still judge focus, exposure and duplicates.</p>
+            <p className={styles.warn}>Face and blink checks could not start in this browser. Keepers will still judge focus, exposure and duplicates.</p>
           )}
         </section>
         <div className={styles.grid}>

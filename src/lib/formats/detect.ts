@@ -1,6 +1,6 @@
 export type PhotoKind = 'jpeg' | 'png' | 'webp' | 'heic' | 'raw'
 
-/** Camera RAW extensions Keeper reads through their embedded previews. */
+/** Camera RAW extensions Keepers reads through their embedded previews. */
 export const RAW_EXTENSIONS = new Set([
   'cr2', // Canon
   'cr3', // Canon

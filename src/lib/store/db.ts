@@ -3,7 +3,7 @@ import type { CullSettings } from '../engine/types'
 import { ANALYSIS_VERSION, type PhotoFeatures, type Verdict } from '../types'
 
 /**
- * Everything Keeper remembers lives in this browser's IndexedDB, on this
+ * Everything Keepers remembers lives in this browser's IndexedDB, on this
  * computer only. Analysis results are cached per file, so reopening a shoot
  * is instant, and review decisions survive reloads.
  */

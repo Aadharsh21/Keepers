@@ -15,7 +15,7 @@ export interface Skipped {
 const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' })
 export const naturalCompare = (a: string, b: string) => collator.compare(a, b)
 
-/** Folders Keeper writes into; never read them back as part of the shoot. */
+/** Folders Keepers writes into; never read them back as part of the shoot. */
 const SKIP_DIRS = new Set(['keepers', '@eadir', '.thumbnails'])
 
 function isHidden(name: string) {
@@ -113,7 +113,7 @@ export function buildSources(input: FileWithPath[]): { sources: PhotoSource[]; s
       continue
     }
     if (!kindOf(item.path)) {
-      if (!isHidden(item.file.name)) skipped.push({ name: item.path, reason: 'Not a photo format Keeper reads' })
+      if (!isHidden(item.file.name)) skipped.push({ name: item.path, reason: 'Not a photo format Keepers reads' })
       continue
     }
     if (item.file.size === 0) {

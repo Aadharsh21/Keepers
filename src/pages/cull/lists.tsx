@@ -123,7 +123,7 @@ export function MomentList({
     return (
       <div className={styles.empty}>
         <p className={styles.emptyTitle}>Nothing left to check</p>
-        <p>Every moment Keeper was unsure about has a decision now.</p>
+        <p>Every moment Keepers was unsure about has a decision now.</p>
       </div>
     )
   }

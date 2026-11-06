@@ -117,7 +117,7 @@ export function Inspector({ entry, assessment, moment, verdict, overridden }: Pr
         </div>
         {overridden && autoVerdict && (
           <p className={styles.override}>
-            You changed this. Keeper suggested {autoVerdict === 'keep' ? 'keeping' : 'rejecting'} it.
+            You changed this. Keepers suggested {autoVerdict === 'keep' ? 'keeping' : 'rejecting'} it.
             <button type="button" className={styles.reset} onClick={() => setVerdict(id, null)}>
               <RotateCcw /> Undo <kbd>U</kbd>
             </button>

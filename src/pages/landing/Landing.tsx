@@ -16,7 +16,7 @@ const FEATURES = [
     tagline: 'Bursts become moments.',
     text: 'Frames shot seconds apart that show the same scene are grouped, ranked, and the best one is kept. You review moments, not two thousand files.',
     tags: ['Grouping', 'Image embeddings', 'Layout hash'],
-    alt: 'Keeper reviewing a sample shoot: each moment is a row of frames with the best one kept.',
+    alt: 'Keepers reviewing a sample shoot: each moment is a row of frames with the best one kept.',
   },
   {
     id: 'faces',
@@ -122,7 +122,7 @@ export default function Landing() {
         <Link href="/" className={styles.brand}>
           <LogoMark />
           <span className={styles.brandText} data-visible={scrolled || undefined}>
-            Keeper <span className={styles.dim}>· Photo culling</span>
+            Keepers <span className={styles.dim}>· Photo culling</span>
           </span>
         </Link>
         <nav className={styles.nav} aria-label="Main">
@@ -134,7 +134,7 @@ export default function Landing() {
           </a>
           <ThemeToggle />
           <Link href="/cull" className={styles.navCta}>
-            Open Keeper
+            Open Keepers
           </Link>
         </nav>
       </header>
@@ -142,7 +142,7 @@ export default function Landing() {
       <main id="main">
         <section className={styles.intro} aria-labelledby="intro-title">
           <div className={styles.introLabel}>
-            <p>Keeper</p>
+            <p>Keepers</p>
             <p className={styles.dim}>Photo culling in your browser</p>
           </div>
           <div className={styles.introBody}>
@@ -150,7 +150,7 @@ export default function Landing() {
               Find your keepers. Skip the grind.
             </h1>
             <p className={styles.sub}>
-              Keeper culls a whole shoot on your computer: it groups bursts, checks focus on the eyes, catches blinks, and picks the best frame of every
+              Keepers culls a whole shoot on your computer: it groups bursts, checks focus on the eyes, catches blinks, and picks the best frame of every
               moment. Your photos are never uploaded.
             </p>
             <div className={styles.actions}>
@@ -175,7 +175,7 @@ export default function Landing() {
                 </a>
               </p>
             )}
-            <div className={styles.marquee} aria-label="Formats Keeper reads">
+            <div className={styles.marquee} aria-label="Formats Keepers reads">
               <ul className={styles.marqueeTrack}>
                 {[...FORMATS, ...FORMATS].map((f, i) => (
                   <li key={i} className={styles.tile} aria-hidden={i >= FORMATS.length || undefined}>
@@ -213,7 +213,7 @@ export default function Landing() {
         <Reveal>
           <Row label="How it works" id="how">
             <p className={styles.lead}>
-              Keeper is a website, but nothing leaves your computer. Photos are read from disk, analysed in Web Workers with on-device models, and remembered in
+              Keepers is a website, but nothing leaves your computer. Photos are read from disk, analysed in Web Workers with on-device models, and remembered in
               your browser so a shoot reopens instantly.
             </p>
             <div className={styles.prose}>
@@ -313,7 +313,7 @@ export default function Landing() {
       </main>
 
       <footer className={styles.footer}>
-        <Link href="/cull">Open Keeper</Link>
+        <Link href="/cull">Open Keepers</Link>
         <span className={styles.dim}>© 2026 Aadharsh Arunn</span>
       </footer>
     </div>

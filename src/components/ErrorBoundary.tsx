@@ -31,7 +31,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
           Your decisions are saved as you make them, so reloading is safe. If it keeps happening, try Chrome or Edge, or open fewer photos at once.
         </p>
         <button type="button" className="btn btn-primary" onClick={() => window.location.reload()}>
-          <RotateCcw /> Reload Keeper
+          <RotateCcw /> Reload Keepers
         </button>
       </main>
     )

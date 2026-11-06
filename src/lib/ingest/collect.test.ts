@@ -31,7 +31,7 @@ describe('buildSources', () => {
   it('skips files that are not photos and empty files, and says why', () => {
     const { sources, skipped } = buildSources([f('x/notes.txt'), f('x/empty.jpg', 0), f('x/ok.jpg'), f('x/.DS_Store')])
     expect(sources.map((s) => s.name)).toEqual(['ok.jpg'])
-    expect(skipped.map((s) => s.reason)).toEqual(['Not a photo format Keeper reads', 'The file is empty'])
+    expect(skipped.map((s) => s.reason)).toEqual(['Not a photo format Keepers reads', 'The file is empty'])
   })
 
   it('sorts naturally, so IMG_2 comes before IMG_10', () => {

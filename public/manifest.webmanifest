@@ -1,6 +1,6 @@
 {
-  "name": "Keeper: photo culling",
-  "short_name": "Keeper",
+  "name": "Keepers: photo culling",
+  "short_name": "Keepers",
   "description": "Cull a whole photo shoot in your browser. Groups bursts, checks focus and blinks, and picks the best frame of every moment.",
   "start_url": "/cull",
   "scope": "/",

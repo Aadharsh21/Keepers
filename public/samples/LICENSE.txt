@@ -1,11 +1,11 @@
-Sample photos for Keeper
+Sample photos for Keepers
 
 The photos in this folder are frames from the HDR+ Burst Photography Dataset
 by Google (https://hdrplusdata.org), licensed under the Creative Commons
 Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0,
 https://creativecommons.org/licenses/by-sa/4.0/).
 
-Changes made for Keeper: the raw DNG burst frames were developed to JPEG,
+Changes made for Keepers: the raw DNG burst frames were developed to JPEG,
 rotated upright, and resized to 1600 pixels on the long edge. No location data
 is included. These adapted images are shared under the same CC BY-SA 4.0
 license.
@@ -16,5 +16,5 @@ photography for high dynamic range and low-light imaging on mobile cameras."
 ACM Transactions on Graphics (SIGGRAPH Asia 2016).
 
 The three screenshots (IMG_2041.PNG, IMG_2042.PNG and
-Screenshot_20260614-171503.png) were made for Keeper to show how it sets
+Screenshot_20260614-171503.png) were made for Keepers to show how it sets
 screenshots aside. They are MIT licensed with the rest of the project.

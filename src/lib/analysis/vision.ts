@@ -7,7 +7,7 @@ import { regionSharpness } from './sharpness'
 /**
  * On-device vision models (Google MediaPipe, Apache 2.0):
  *  - Face Landmarker: 478 face landmarks plus 52 blendshape scores, including
- *    eyeBlinkLeft/Right, which is how Keeper spots closed eyes.
+ *    eyeBlinkLeft/Right, which is how Keepers spots closed eyes.
  *  - Image Embedder (MobileNetV3 small): a 1024-number fingerprint of what the
  *    photo shows, used to find near-duplicate frames.
  * Both run inside this worker on the CPU through WebAssembly.

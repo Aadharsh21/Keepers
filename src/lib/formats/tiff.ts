@@ -1,6 +1,6 @@
 import { ascii, u16, u32, type ByteSource } from './bytes'
 
-/** Tags Keeper reads. Names follow the TIFF/EP and EXIF specs. */
+/** Tags Keepers reads. Names follow the TIFF/EP and EXIF specs. */
 export const Tag = {
   NewSubfileType: 0x00fe,
   ImageWidth: 0x0100,
@@ -193,7 +193,7 @@ export function parseExifDate(dt: string | undefined, subsec?: string): number |
   return Number.isFinite(ms) ? ms : undefined
 }
 
-/** Reads the camera metadata Keeper shows and uses for ordering bursts. */
+/** Reads the camera metadata Keepers shows and uses for ordering bursts. */
 export async function readExifMeta(reader: TiffReader, ifd0Offset: number): Promise<ExifMeta> {
   const meta: ExifMeta = {}
   const ifd0 = await reader.readIfd(ifd0Offset)

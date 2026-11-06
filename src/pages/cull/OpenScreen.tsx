@@ -50,7 +50,7 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
     } catch (err) {
       if ((err as DOMException)?.name !== 'AbortError') {
         console.error(err)
-        showNotice('Keeper could not open those files. If they are on a memory card, copy them to your computer and try again.')
+        showNotice('Keepers could not open those files. If they are on a memory card, copy them to your computer and try again.')
       }
     } finally {
       setBusy(null)
@@ -93,7 +93,7 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
       void start(s.key, async () => {
         const permission = await handle.requestPermission!({ mode: 'read' })
         if (permission !== 'granted') {
-          showNotice(`Keeper needs permission to read "${s.name}" again. Open the folder to continue.`)
+          showNotice(`Keepers needs permission to read "${s.name}" again. Open the folder to continue.`)
           return null
         }
         return { files: await fromDirectoryHandle(handle), name: handle.name, handle }
@@ -143,7 +143,7 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
           Pick the folder from your memory card.
         </h1>
         <p className={styles.lede}>
-          Or drop it anywhere on this panel. Keeper reads every photo right here on your computer and remembers your decisions in this browser.
+          Or drop it anywhere on this panel. Keepers reads every photo right here on your computer and remembers your decisions in this browser.
         </p>
         <div className={styles.actions}>
           <button type="button" className="btn btn-primary btn-lg" onClick={openFolder} disabled={!!busy}>
@@ -241,7 +241,7 @@ export function OpenScreen({ autoSample }: { autoSample?: boolean }) {
 
       {!pickerSupported && (
         <p className={styles.browserNote}>
-          Tip: in Chrome or Edge, Keeper can also save keepers straight into your folder. In this browser, exports download as a ZIP.
+          Tip: in Chrome or Edge, Keepers can also save keepers straight into your folder. In this browser, exports download as a ZIP.
         </p>
       )}
       </div>

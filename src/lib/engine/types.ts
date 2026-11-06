@@ -26,7 +26,7 @@ export interface Moment {
   photoIds: string[]
   start?: number
   end?: number
-  /** Screenshots and graphics are collected in one set that Keeper does not judge. */
+  /** Screenshots and graphics are collected in one set that Keepers does not judge. */
   kind?: 'graphics'
 }
 
@@ -46,7 +46,7 @@ export interface Assessment {
   rank: number
   score: number
   verdict: Verdict
-  /** Keeper is unsure: a close call, the best of a weak set, or a borderline single. */
+  /** Keepers is unsure: a close call, the best of a weak set, or a borderline single. */
   needsLook: boolean
   reasons: Reason[]
   issues: IssueCode[]

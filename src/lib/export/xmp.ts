@@ -9,7 +9,7 @@ export interface RatingTags {
   rating?: number
   /** Color label to set. Leave undefined to keep whatever label is there. */
   label?: string
-  /** Remove the label only if it is this one (Keeper's own reject label), so people's labels survive. */
+  /** Remove the label only if it is this one (Keepers' own reject label), so people's labels survive. */
   clearLabelIf?: string
 }
 
@@ -33,7 +33,7 @@ export function freshSidecar(tags: RatingTags): string {
     tags.label ? `\n    xmp:Label="${escapeAttr(tags.label)}"` : '',
   ].join('')
   return `<?xpacket begin="${BOM}" id="W5M0MpCehiHzreSzNTczkc9d"?>
-<x:xmpmeta xmlns:x="${NS_X}" x:xmptk="Keeper">
+<x:xmpmeta xmlns:x="${NS_X}" x:xmptk="Keepers">
  <rdf:RDF xmlns:rdf="${NS_RDF}">
   <rdf:Description rdf:about=""
     xmlns:xmp="${NS_XMP}"${attrs}/>

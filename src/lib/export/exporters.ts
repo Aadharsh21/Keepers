@@ -33,7 +33,7 @@ export interface Rated {
 
 /** Writes (or updates) sidecars next to each RAW file inside the opened folder. */
 export async function writeSidecarsToFolder(root: FileSystemDirectoryHandle, items: Rated[], report: Report, signal: AbortSignal): Promise<ExportOutcome> {
-  if (!(await ensureWritable(root))) throw new Error('Keeper needs permission to save into the folder. Choose "Allow" when the browser asks.')
+  if (!(await ensureWritable(root))) throw new Error('Keepers needs permission to save into the folder. Choose "Allow" when the browser asks.')
   const warnings: string[] = []
   let written = 0
   for (const [i, { source, tags }] of items.entries()) {
@@ -41,7 +41,7 @@ export async function writeSidecarsToFolder(root: FileSystemDirectoryHandle, ite
     report({ done: i, total: items.length, label: source.name })
     const text = await sidecarText(source, tags)
     if (text === null) {
-      warnings.push(`${sidecarName(source.raw!.name)} was left unchanged because Keeper could not read it.`)
+      warnings.push(`${sidecarName(source.raw!.name)} was left unchanged because Keepers could not read it.`)
       continue
     }
     const dir = await subdir(root, dirOf(source.relPath), false)
@@ -163,7 +163,7 @@ export async function sidecarEntries(items: Rated[]): Promise<{ entries: ZipEntr
   for (const { source, tags } of items) {
     const text = await sidecarText(source, tags)
     if (text === null) {
-      warnings.push(`${sidecarName(source.raw!.name)} was skipped because Keeper could not read the existing file.`)
+      warnings.push(`${sidecarName(source.raw!.name)} was skipped because Keepers could not read the existing file.`)
       continue
     }
     const dir = dirOf(source.relPath)

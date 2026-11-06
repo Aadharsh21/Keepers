@@ -13,9 +13,9 @@ export function LogoMark({ size = 22 }: { size?: number }) {
 
 export function Logo({ label }: { label?: string }) {
   return (
-    <Link href="/" className={styles.logo} aria-label="Keeper home">
+    <Link href="/" className={styles.logo} aria-label="Keepers home">
       <LogoMark />
-      {label !== '' && <span className={styles.word}>{label ?? 'Keeper'}</span>}
+      {label !== '' && <span className={styles.word}>{label ?? 'Keepers'}</span>}
     </Link>
   )
 }

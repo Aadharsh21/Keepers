@@ -110,7 +110,7 @@ export async function openShoot(opts: OpenOptions): Promise<void> {
   if (!sources.length) {
     useSession.setState({
       notice: skipped.length
-        ? `None of the ${skipped.length} files there are photos Keeper can read. It reads JPEG, HEIC, PNG and camera RAW files.`
+        ? `None of the ${skipped.length} files there are photos Keepers can read. It reads JPEG, HEIC, PNG and camera RAW files.`
         : 'That folder is empty. Pick the folder with your photos in it.',
     })
     return

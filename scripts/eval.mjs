@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Measures how closely Keeper's picks match a photographer's own picks.
+ * Measures how closely Keepers' picks match a photographer's own picks.
  *
  *   npm run eval -- --shoot ~/Pictures/smith-wedding --picks ~/Pictures/smith-wedding/selects
  *   npm run eval -- --shoot ./shoot --picks picks.txt
@@ -157,7 +157,7 @@ try {
     workers: r.workers,
     visionModels: r.status.vision,
   }
-  const md = `# Keeper accuracy report
+  const md = `# Keepers accuracy report
 
 Shoot: \`${report.shoot}\` (${report.photos} photos, ${report.moments} moments)
 Settings: keep ${r.settings.picksPerMoment} per moment, ${r.settings.strictness} strictness, ${r.settings.grouping} grouping
@@ -165,12 +165,12 @@ Settings: keep ${r.settings.picksPerMoment} per moment, ${r.settings.strictness}
 | Metric | Value |
 | --- | --- |
 | Photographer picks | ${picks.size} |
-| Keeper keeps | ${keepCount} |
-| Moment hit rate (Keeper kept one of your picks) | ${pct(hitRate)} of ${pickedMoments.length} moments |
-| Precision (Keeper keeps you also picked) | ${pct(precision)} |
-| Recall (your picks Keeper also kept) | ${pct(recall)} |
+| Keepers keeps | ${keepCount} |
+| Moment hit rate (Keepers kept one of your picks) | ${pct(hitRate)} of ${pickedMoments.length} moments |
+| Precision (Keepers keeps you also picked) | ${pct(precision)} |
+| Recall (your picks Keepers also kept) | ${pct(recall)} |
 | F1 | ${pct(f1)} |
-| Reject agreement (your rejects Keeper also rejected) | ${pct(rejectAgreement)} |
+| Reject agreement (your rejects Keepers also rejected) | ${pct(rejectAgreement)} |
 | Analysis speed | ${report.photosPerSecond.toFixed(1)} photos/s with ${r.workers} workers |
 | Unreadable files | ${r.errors.length} |
 `
